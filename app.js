@@ -1,50 +1,27 @@
 require('dotenv').config()
 
 var http = require('http');
-const Discord = require('discord.js')
-const tumblr = require('tumblr.js')
-const jsdom = require('jsdom')
-const { JSDOM } = jsdom;
-const bot = new Discord.Client()
+const Discord = require('discord.js');
+const bot = new Discord.Client();
 var logger = require('winston');
 var request = require('request');
+var logger = require('./Services/Logger').getInstance().getLogger();
 
-var PREFIX = '??'
+const DevMemesFactory = require('./SourceManager/DevMemesFactory').DevMemesFactory;
+
+var PREFIX = '?';
 
 http.createServer(function (request, response) {
     response.statusCode = 200;
     response.end();
 }).listen(process.env.PORT || 5000);
-//d
-try {
-    var tumblrClient = new tumblr.createClient({
-        consumer_key: process.env.TUMBLR_API_KEY,
-        consumer_secret: process.env.TUMBLR_SECRET_KEY,
-        token: process.env.TUMBLR_TOKEN,
-        token_secret: process.env.TUMBLR_TOKEN_SECRET,
-        returnPromises: true,
-    });
-}
-catch(error){
-        logger.error(error)
-}
-
-
-// Configure logger settings
-logger.remove(logger.transports.Console);
-logger.add(logger.transports.Console, {
-    colorize: true
-});
-
-logger.level = 'debug';
-
 
 bot.on('ready', function () {
     logger.info('Connected');
     logger.info('Logged in as: ');
     logger.info(bot.user.username + ' - (' + bot.user.id + ')');
     bot.user.setActivity("Type " + PREFIX + "help")
-})
+});
 
 bot.on('message', async message => {
     try{
@@ -58,30 +35,23 @@ bot.on('message', async message => {
                 case 'setPrefix':
                     if(args[1] === undefined) message.channel.send('You must provide a value for this command')
                     else {
-                        PREFIX = args[1]
-                        bot.user.setActivity("Type " + PREFIX + "help")
-                        message.channel.send('The Command Prefix has been changed to : **' + PREFIX + '**')
+                        PREFIX = args[1];
+                        bot.user.setActivity("Type " + PREFIX + "help");
+                        message.channel.send('The Command Prefix has been changed to : **' + PREFIX + '**');
                     }
                     break;
                 case 'd':
                 case 'devMemes':
-                    tumblrClient.blogInfo('thecodinglove.com')
-                        .then(data=>{
-                            var offset = Math.floor(Math.random() * data.blog.total_posts)
-                            return tumblrClient.blogPosts('thecodinglove.com', {offset: offset, limit: 1})
-                        })
-                        .then(data=>{
-                            var post = data.posts[0]
-                            const dom = new JSDOM(post.body)
 
+                    DevMemesFactory.getRandomMeme()
+                        .then(meme=>{
                             message.channel.send(
                                 '```asciidoc'+
-                                '\n# ' + post.summary +
+                                '\n# ' + meme.title +
                                 '```',
-                                {files: [dom.window.document.querySelector('img').src]}
-                            )
-                        })
-
+                                {files: [meme.imgSource]}
+                            );
+                    });
                     break;
                 case 'lolis':
                     message.channel.send("THEY ARE THE BEST")
@@ -98,18 +68,16 @@ bot.on('message', async message => {
                         '\n   - help'+
                         '\n' +
                         '\n# GitHub :' +
-                        '\n   - Feel free to collaborate on the developpement of the bot : https://github.com/Cleverdawn/pedo-dev-bot.git '+                        '```'
-                    )
+                        '\n   - Feel free to collaborate on the developpement of the bot : https://github.com/Cleverdawn/pedo-dev-bot.git '+
+                        '```'
+                    );
                     break;
-
             }
         }
     }catch(error){
-        logger.error(error)
+        logger.error(error);
     }
-
 });
-
 
 try{
     bot.login(process.env.DISCORD_TOKEN)
