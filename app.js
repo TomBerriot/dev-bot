@@ -7,6 +7,7 @@ const jsdom = require('jsdom')
 const { JSDOM } = jsdom;
 const bot = new Discord.Client()
 var logger = require('winston');
+var request = require('request');
 
 var PREFIX = '??'
 
@@ -72,11 +73,12 @@ bot.on('message', async message => {
                         .then(data=>{
                             var post = data.posts[0]
                             const dom = new JSDOM(post.body)
+
                             message.channel.send(
                                 '```asciidoc'+
-                                '\n# ' + post.summary+
-                                '```\n'+
-                                dom.window.document.querySelector('img').src
+                                '\n# ' + post.summary +
+                                '```',
+                                {files: [dom.window.document.querySelector('img').src]}
                             )
                         })
 
