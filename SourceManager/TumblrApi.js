@@ -2,6 +2,7 @@ const tumblr = require('tumblr.js');
 var logger = require('../Services/Logger').getInstance().getLogger();
 
 const TumblrClient = function TumblrApi() {
+    this.client = null;
     try{
         this.client = new tumblr.createClient({
             consumer_key: process.env.TUMBLR_API_KEY,

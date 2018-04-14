@@ -51,10 +51,13 @@ bot.on('message', async message => {
                                 '```',
                                 {files: [meme.imgSource]}
                             );
-                    });
+                        })
+                        .catch(error=>{
+                            logger.error(error);
+                        });
                     break;
                 case 'lolis':
-                    message.channel.send("THEY ARE THE BEST")
+                    message.channel.send("THEY ARE THE BEST");
                     break;
                 case 'help':
                     message.channel.send(
