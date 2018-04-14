@@ -10,7 +10,10 @@ var logger = require('winston');
 
 var PREFIX = '??'
 
-http.createServer(function (request, response) {}).listen(process.env.PORT || 5000);
+http.createServer(function (request, response) {
+    response.statusCode = 200;
+    response.end();
+}).listen(process.env.PORT || 5000);
 //d
 try {
     var tumblrClient = new tumblr.createClient({
