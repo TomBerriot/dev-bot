@@ -1,5 +1,6 @@
 require('dotenv').config()
 
+var http = require('http');
 const Discord = require('discord.js')
 const tumblr = require('tumblr.js')
 const jsdom = require('jsdom')
@@ -8,6 +9,8 @@ const bot = new Discord.Client()
 var logger = require('winston');
 
 var PREFIX = '??'
+
+http.createServer(function (request, response) {}).listen(process.env.PORT || 5000);
 
 try {
     var tumblrClient = new tumblr.createClient({
@@ -88,7 +91,9 @@ bot.on('message', async message => {
                         '\n   - setPrefix [value] : Change the prefix used before commands' +
                         '\n   - devMemes (shortcut : d) : random dev memes across the web ' +
                         '\n   - help'+
-                        '```'
+                        '\n' +
+                        '\n# GitHub :' +
+                        '\n   - Feel free to collaborate on the developpement of the bot : https://github.com/Cleverdawn/pedo-dev-bot.git '+                        '```'
                     )
                     break;
 
