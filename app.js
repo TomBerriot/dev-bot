@@ -50,7 +50,9 @@ bot.on('message', async message => {
                                 '\n# ' + meme.title +
                                 '```',
                                 {files: [meme.imgSource]}
-                            );
+                            ).catch(error=>{
+                                logger.error(error);
+                            });
                         })
                         .catch(error=>{
                             logger.error(error);
