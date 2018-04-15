@@ -3,7 +3,7 @@ const Source = require('../abs/Source');
 const jsdom = require('jsdom')
 const { JSDOM } = jsdom;
 const tumblrClient = require('../TumblrApi').TumblrApi.getInstance().getClient();
-var logger = require('./Services/Logger').getInstance().getLogger();
+var logger = require('../../Services/Logger').getInstance().getLogger();
 
 
 const CodingLoveSource = function CodingLoveSource(source) {
