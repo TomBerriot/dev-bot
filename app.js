@@ -3,7 +3,6 @@ require('dotenv').config()
 var http = require('http');
 const Discord = require('discord.js');
 const bot = new Discord.Client();
-var logger = require('winston');
 var request = require('request');
 var logger = require('./Services/Logger').getInstance().getLogger();
 
@@ -33,7 +32,7 @@ bot.on('message', async message => {
                     message.reply('Pong!');
                     break;
                 case 'setPrefix':
-                    if(args[1] === undefined) message.channel.send('You must provide a value for this command')
+                    if(args[1] === undefined) message.channel.send('You must provide a value for this command');
                     else {
                         PREFIX = args[1];
                         bot.user.setActivity("Type " + PREFIX + "help");
@@ -59,6 +58,25 @@ bot.on('message', async message => {
                 case 'lolis':
                     message.channel.send("THEY ARE THE BEST");
                     break;
+                case 'RPS':
+                    var i = Math.floor((Math.random() * 3) + 1);
+                    var emote = "";
+                    switch(i){
+                        case 1:
+                            emote = ":newspaper:";
+                            break;
+                        case 2:
+                            emote = ":scissors:";
+                            break;
+                        case 3:
+                            emote = ":full_moon:";
+                            break;
+                    }
+                    message.reply(emote);
+                    break;
+
+                case "op":
+
                 case 'help':
                     message.channel.send(
                         '```Markdown' +
@@ -68,6 +86,7 @@ bot.on('message', async message => {
                         '\n   - ping : Pong !' +
                         '\n   - setPrefix [value] : Change the prefix used before commands' +
                         '\n   - devMemes (shortcut : d) : random dev memes across the web ' +
+                        '\n   - RPS : Rock, Paper, Scissors ! ' +
                         '\n   - help'+
                         '\n' +
                         '\n# GitHub :' +
