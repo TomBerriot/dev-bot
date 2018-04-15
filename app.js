@@ -10,6 +10,7 @@ const DevMemesFactory = require('./SourceManager/DevMemesFactory').DevMemesFacto
 
 var PREFIX = process.env.PREFIX;
 
+
 http.createServer(function (request, response) {
     response.statusCode = 200;
     response.end();
