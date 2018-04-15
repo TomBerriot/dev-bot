@@ -21,7 +21,6 @@ DiscordBot.setup(ServiceManager)
     .then(() => {
         TumblrApi.setup(ServiceManager);
         DevMemesFactory.setup(ServiceManager);
-        ServiceManager.getManagementManager().sync()
     })
     .then(() => new Promise((resolve, reject) => {
         /**
