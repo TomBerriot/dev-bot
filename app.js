@@ -8,7 +8,7 @@ var logger = require('./Services/Logger').getInstance().getLogger();
 
 const DevMemesFactory = require('./SourceManager/DevMemesFactory').DevMemesFactory;
 
-var PREFIX = '?';
+var PREFIX = process.env.PREFIX;
 
 http.createServer(function (request, response) {
     response.statusCode = 200;
