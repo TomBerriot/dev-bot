@@ -1,18 +1,20 @@
 const tumblr = require('tumblr.js');
-var logger = require('../Services/Logger').getInstance().getLogger();
+
+var ServiceManager = null;
 
 const TumblrClient = function TumblrApi() {
     this.client = null;
+    var tumblrApiConfig = ServiceManager.getConfig().tumblrApi;
     try{
         this.client = new tumblr.createClient({
-            consumer_key: process.env.TUMBLR_API_KEY,
-            consumer_secret: process.env.TUMBLR_SECRET_KEY,
-            token: process.env.TUMBLR_TOKEN,
-            token_secret: process.env.TUMBLR_TOKEN_SECRET,
+            consumer_key: tumblrApiConfig.apikey,
+            consumer_secret: tumblrApiConfig.secretKey,
+            token: tumblrApiConfig.token,
+            token_secret: tumblrApiConfig.tokenSecret,
             returnPromises: true,
         });
     }catch(error){
-        logger.error(error);
+        ServiceManager.getLogger().error("Tumblr connexion : " + error);
     }
 };
 
@@ -34,6 +36,13 @@ var TumblrApi = (function () {
                 instance = createInstance();
             }
             return instance;
+        },
+        setup: function(serviceManager){
+            ServiceManager = serviceManager;
+            var tumblrApiConfig = ServiceManager.getConfig().tumblrApi;
+            if (!instance) {
+                instance = createInstance();
+            }
         }
     };
 })();

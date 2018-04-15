@@ -1,13 +1,15 @@
 const Meme = require('../Meme');
 const Source = require('../abs/Source');
-const jsdom = require('jsdom')
+const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
-const tumblrClient = require('../TumblrApi').TumblrApi.getInstance().getClient();
-var logger = require('../../Services/Logger').getInstance().getLogger();
+var tumblrClient = null;
 
+var ServiceManager = null;
 
-const CodingLoveSource = function CodingLoveSource(source) {
+const CodingLoveSource = function CodingLoveSource(serviceManager, source) {
     Source.call(this, source);
+    ServiceManager = serviceManager;
+    tumblrClient = require('../TumblrApi').TumblrApi.getInstance().getClient();
 };
 
 CodingLoveSource.prototype.getRandomMeme = function getRandomMeme() {
@@ -21,7 +23,7 @@ CodingLoveSource.prototype.getRandomMeme = function getRandomMeme() {
             const dom = new JSDOM(post.body);
             return new Meme(post.summary, dom.window.document.querySelector('img').src);
         }).catch(error=>{
-            logger.error(error);
+            ServiceManager.getLogger().error("Coding love random meme : " + error);
         })
 };
 
