@@ -15,6 +15,9 @@ function ready(){
     bot.user.setActivity("Type " + discordBotConfig.prefix + "help")
 };
 
+function isASCII(str) {
+    return /^[\x00-\x7F]*$/.test(str);
+}
 
 async function message(message){
     var logger = ServiceManager.getLogger();
@@ -30,10 +33,12 @@ async function message(message){
                     if((message.member.id === message.member.guild.ownerID)
                         || message.author.tag === "Onodera#3602"){
                         if(args[1] === undefined) message.reply('You must provide a value for this command');
-                        else {
+                        else if(isASCII(args[1])){
                             discordBotConfig.prefix = args[1];
                             bot.user.setActivity("Type " + discordBotConfig.prefix + "help");
                             message.channel.send('The Command Prefix has been changed to : **' + discordBotConfig.prefix + '**');
+                        }else{
+                            message.channel.send('The prefix has to be **ASCII**.');
                         }
                     }else message.reply('You must be the owner of the guild to use this role');
 
