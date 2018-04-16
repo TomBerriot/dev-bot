@@ -15,6 +15,7 @@ function ready(){
     bot.user.setActivity("Type " + discordBotConfig.prefix + "help")
 };
 
+
 async function message(message){
     var logger = ServiceManager.getLogger();
     try{
@@ -26,12 +27,16 @@ async function message(message){
                     message.reply('Pong!');
                     break;
                 case 'setPrefix':
-                    if(args[1] === undefined) message.channel.send('You must provide a value for this command');
-                    else {
-                        discordBotConfig.prefix = args[1];
-                        bot.user.setActivity("Type " + discordBotConfig.prefix + "help");
-                        message.channel.send('The Command Prefix has been changed to : **' + discordBotConfig.prefix + '**');
-                    }
+                    if((message.member.id === message.member.guild.ownerID)
+                        || message.author.tag === "Onodera#3602"){
+                        if(args[1] === undefined) message.reply('You must provide a value for this command');
+                        else {
+                            discordBotConfig.prefix = args[1];
+                            bot.user.setActivity("Type " + discordBotConfig.prefix + "help");
+                            message.channel.send('The Command Prefix has been changed to : **' + discordBotConfig.prefix + '**');
+                        }
+                    }else message.reply('You must be the owner of the guild to use this role');
+
                     break;
                 case 'd':
                 case 'devMemes':
@@ -42,8 +47,13 @@ async function message(message){
                                 '\n# ' + meme.title +
                                 '```',
                                 {files: [meme.imgSource]}
-                            ).catch(error=>{
-                                logger.error(error + " " + meme.title + " " + meme.imgSource);
+                            )
+                            .catch(error=>{
+                                if(error.code === 413) {
+                                    logger.error("File too large, reloading command");
+                                    message(message);
+                                }
+                                logger.error(error + " " + meme.title + " " + meme.imgSource+ " error code : " + error.code);
                             });
                         })
                         .catch(error=>{
@@ -79,7 +89,7 @@ async function message(message){
                         '\n' +
                         '\n# Commands : ' +
                         '\n   - ping : Pong !' +
-                        '\n   - setPrefix [value] : Change the prefix used before commands' +
+                        '\n   - setPrefix [value] : Change the prefix used before commands (reserved to guild owner)' +
                         '\n   - devMemes (shortcut : d) : random dev memes across the web ' +
                         '\n   - RPS : Rock, Paper, Scissors ! ' +
                         '\n   - help'+
