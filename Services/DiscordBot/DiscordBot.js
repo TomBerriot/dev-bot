@@ -54,8 +54,10 @@ async function message(message){
                                 {files: [meme.imgSource]}
                             )
                             .catch(error=>{
-                                if(error.code === 413) {
+                                if(error.code === 40005) {
                                     logger.error("File too large, reloading command");
+                                    message(message);
+                                }else{
                                     message(message);
                                 }
                                 logger.error(error + " " + meme.title + " " + meme.imgSource+ " error code : " + error.code);
