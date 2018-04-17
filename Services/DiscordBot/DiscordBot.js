@@ -23,16 +23,6 @@ function isASCII(str) {
 function devMemesCommand(message){
     let logger = ServiceManager.getLogger();
 
-    User.findOrCreate(false, {where:{username:message.author.tag}})
-        .then(user=>{
-            user = user[0];
-            if(((user.memeCounter + 1) % 10) === 0){
-                message.reply("Stop lazing around, go work you lil' cunt. :japanese_goblin: ");
-            }
-
-            user.update({ memeCounter: user.memeCounter + 1 });
-        });
-
     DevMemesFactory.getRandomMeme()
         .then(meme=>{
             message.channel.send(
@@ -120,12 +110,22 @@ function message(message){
                     break;
                 case 'd':
                 case 'devMemes':
+                    User.findOrCreate(false, {where:{username:message.author.tag}})
+                        .then(user=>{
+                            user = user[0];
+                            if(((user.memeCounter + 1) % 10) === 0){
+                                message.reply("Stop lazing around, go work you lil' cunt. :japanese_goblin: ");
+                            }
+
+                            user.update({ memeCounter: user.memeCounter + 1 });
+                        });
                     devMemesCommand(message);
                     break;
                 case 'rps':
                     rpsCommand(message);
                     break;
                 case "op":
+
 
                 case 'help':
                     helpCommand(message);

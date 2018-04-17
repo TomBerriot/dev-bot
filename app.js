@@ -18,7 +18,6 @@ app.get('/', function (req, res) {
 
 ServiceManager.getManagementManager().authenticate()
     .then(() =>{
-        ServiceManager.getManagementManager().sync({force:true});
         DiscordBot.setup(ServiceManager);
     })
     .then(() => {

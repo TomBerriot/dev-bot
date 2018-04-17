@@ -4,7 +4,7 @@ var ServiceManager = null;
 
 const TumblrClient = function TumblrApi() {
     this.client = null;
-    var tumblrApiConfig = ServiceManager.getConfig().tumblrApi;
+    let tumblrApiConfig = ServiceManager.getConfig().tumblrApi;
     try{
         this.client = new tumblr.createClient({
             consumer_key: tumblrApiConfig.apikey,
@@ -22,11 +22,11 @@ TumblrClient.prototype.getClient= function getClient() {
     return this.client;
 };
 
-var TumblrApi = (function () {
-    var instance;
+let TumblrApi = (function () {
+    let instance;
 
     function createInstance() {
-        var client = new TumblrClient("I am the instance");
+        let client = new TumblrClient("I am the instance");
         return client;
     }
 
@@ -39,7 +39,7 @@ var TumblrApi = (function () {
         },
         setup: function(serviceManager){
             ServiceManager = serviceManager;
-            var tumblrApiConfig = ServiceManager.getConfig().tumblrApi;
+            let tumblrApiConfig = ServiceManager.getConfig().tumblrApi;
             if (!instance) {
                 instance = createInstance();
             }
