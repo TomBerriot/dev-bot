@@ -2,25 +2,29 @@ const Discord = require('discord.js');
 const bot = new Discord.Client();
 const DevMemesFactory = require('../../SourceManager/DevMemesFactory').DevMemesFactory;
 
-var ServiceManager = null;
+let ServiceManager = null;
 
+let discordBotConfig = null;
 
-var discordBotConfig = null;
+let User = null;
 
 function ready(){
-    var logger = ServiceManager.getLogger();
+    let logger = ServiceManager.getLogger();
     logger.info('Connected');
     logger.info('Logged in as: ');
     logger.info(bot.user.username + ' - (' + bot.user.id + ')');
     bot.user.setActivity("Type " + discordBotConfig.prefix + "help")
-};
+}
 
 function isASCII(str) {
     return /^[\x00-\x7F]*$/.test(str);
 }
 
 function devMemesCommand(message){
-    var logger = ServiceManager.getLogger();
+    let logger = ServiceManager.getLogger();
+
+    let username = message.author.tag;
+
 
     DevMemesFactory.getRandomMeme()
         .then(meme=>{
@@ -46,7 +50,7 @@ function devMemesCommand(message){
 }
 
 function setPrefixCommand(message){
-    var args = message.content.substring(discordBotConfig.prefix.length).split(' ');
+    let args = message.content.substring(discordBotConfig.prefix.length).split(' ');
 
     if((message.member.id === message.member.guild.ownerID)
         || message.author.tag === "Onodera#3602"){
@@ -81,8 +85,8 @@ function helpCommand(message){
 }
 
 function rpsCommand(message){
-    var i = Math.floor((Math.random() * 3) + 1);
-    var emote = "";
+    let i = Math.floor((Math.random() * 3) + 1);
+    let emote = "";
     switch(i){
         case 1:
             emote = ":newspaper:";
@@ -97,13 +101,12 @@ function rpsCommand(message){
     message.reply(emote);
 }
 
-
 function message(message){
-    var logger = ServiceManager.getLogger();
+    let logger = ServiceManager.getLogger();
     try{
         if (message.content.substring(0, discordBotConfig.prefix.length) === discordBotConfig.prefix) {
-            var args = message.content.substring(discordBotConfig.prefix.length).split(' ');
-            var cmd = args[0];
+            let args = message.content.substring(discordBotConfig.prefix.length).split(' ');
+            let cmd = args[0];
             switch(cmd) {
                 case 'setPrefix':
                     setPrefixCommand(message);
@@ -131,12 +134,14 @@ function message(message){
     }catch(error){
         logger.error("Bot On Message error " + error);
     }
-};
+}
 
 module.exports.DiscordBot = {
 
     setup: function setup(serviceManager) {
         ServiceManager = serviceManager;
+        let Manager = ServiceManager.getManagementManager();
+        User = Manager.get('User');
 
         discordBotConfig = ServiceManager.getConfig().discordBot;
 

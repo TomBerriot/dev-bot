@@ -1,4 +1,3 @@
-/* jshint indent: 2 */
 
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define('User', {
@@ -13,8 +12,12 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: true,
     },
     country: {
-      type: DataTypes.STRING(45),
+      type: DataTypes.STRING(10),
       allowNull: true,
+    },
+    memeCounter: {
+        type: DataTypes.INTEGER(11),
+        allowNull: true,
     },
     created_at: {
       type: DataTypes.TIME,
