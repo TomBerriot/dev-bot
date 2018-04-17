@@ -2,7 +2,7 @@
   "name": "pedo-dev-bot",
   "version": "1.0.0",
   "description": "My own Discord bot",
-  "main": "bot.js",
+  "main": "app.js",
   "author": "YOUR-NAME-HERE",
   "dependencies": {
     "app-root-dir": "^1.0.2",
