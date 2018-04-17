@@ -19,7 +19,7 @@ function isASCII(str) {
     return /^[\x00-\x7F]*$/.test(str);
 }
 
-var message = function message(message){
+function message(message){
     var logger = ServiceManager.getLogger();
     try{
         if (message.content.substring(0, discordBotConfig.prefix.length) === discordBotConfig.prefix) {
@@ -56,10 +56,9 @@ var message = function message(message){
                             .catch(error=>{
                                 logger.error(error + " " + meme.title + " " + meme.imgSource+ " error code : " + error.code);
                                 if(error.code === 40005) {
-                                    logger.error("File too large, reloading command");
-                                    message(message);
+                                    message.channel.send("Image file of this meme was too large lol. Pls retry. :pray:");
                                 }else{
-                                    message(message);
+                                    message.channel.send("Meme too old, can't open dead link. Pls retry. :pray:");
                                 }
                                 
                             });
