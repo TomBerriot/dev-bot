@@ -23,8 +23,15 @@ function isASCII(str) {
 function devMemesCommand(message){
     let logger = ServiceManager.getLogger();
 
-    let username = message.author.tag;
+    User.findOrCreate(false, {where:{username:message.author.tag}})
+        .then(user=>{
+            user = user[0];
+            if(((user.memeCounter + 1) % 10) === 0){
+                message.reply("Stop lazing around, go work you lil' cunt. :japanese_goblin: ");
+            }
 
+            user.update({ memeCounter: user.memeCounter + 1 });
+        });
 
     DevMemesFactory.getRandomMeme()
         .then(meme=>{
@@ -34,15 +41,15 @@ function devMemesCommand(message){
                 '```',
                 {files: [meme.imgSource]}
             )
-                .catch(error=>{
-                    logger.error(error + " " + meme.title + " " + meme.imgSource+ " error code : " + error.code);
-                    if(error.code === 40005) {
-                        message.channel.send("Image file of this meme was too large lol. Loading new dank meme. :incoming_envelope:");
-                    }else{
-                        message.channel.send("Meme too old, can't open dead link. Loading new dank meme. :incoming_envelope:");
-                    }
-                    devMemesCommand(message);
-                });
+            .catch(error=>{
+                logger.error(error + " " + meme.title + " " + meme.imgSource+ " error code : " + error.code);
+                if(error.code === 40005) {
+                    message.channel.send("Image file of this meme was too large lol. Loading new dank meme. :incoming_envelope:");
+                }else{
+                    message.channel.send("Meme too old, can't open dead link. Loading new dank meme. :incoming_envelope:");
+                }
+                devMemesCommand(message);
+            });
         })
         .catch(error=>{
             logger.error("Dev Memes Command : " + error );
@@ -142,6 +149,7 @@ module.exports.DiscordBot = {
         ServiceManager = serviceManager;
         let Manager = ServiceManager.getManagementManager();
         User = Manager.get('User');
+
 
         discordBotConfig = ServiceManager.getConfig().discordBot;
 

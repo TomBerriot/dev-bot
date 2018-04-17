@@ -63,7 +63,9 @@ Repository.prototype.add = function add(params, transaction = null) {
 
 /**
  * @function
- * @param {Object} Options( where, transaction )
+ * @param exclude
+ * @param params
+ * @param transaction
  */
 Repository.prototype.findOrCreate = function findOrCreate(exclude, params, transaction) {
   let opt = merge({

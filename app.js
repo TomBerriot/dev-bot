@@ -17,7 +17,10 @@ app.get('/', function (req, res) {
 
 
 ServiceManager.getManagementManager().authenticate()
-    .then(() => DiscordBot.setup(ServiceManager))
+    .then(() =>{
+        ServiceManager.getManagementManager().sync({force:true});
+        DiscordBot.setup(ServiceManager);
+    })
     .then(() => {
         TumblrApi.setup(ServiceManager);
         DevMemesFactory.setup(ServiceManager);

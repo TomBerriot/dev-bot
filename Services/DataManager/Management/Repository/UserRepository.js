@@ -27,5 +27,11 @@ UserRepository.prototype.findAll = function findAll(exclude = true, include = fa
   return Repository.prototype.findAll.call(this, exclude, include, opt);
 };
 
+UserRepository.prototype.findOrCreate = function findOrCreate(exclude, params) {
+    let opt = merge({
+        attributes: { exclude: exclude ? ['created_at', 'updated_at', 'created_by', 'updated_by'] : [] },
+    }, params);
+    return this.models[this.name].findOrCreate(opt);
+};
 
 module.exports = UserRepository;

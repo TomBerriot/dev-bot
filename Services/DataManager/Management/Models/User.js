@@ -18,6 +18,7 @@ module.exports = function (sequelize, DataTypes) {
     memeCounter: {
         type: DataTypes.INTEGER(11),
         allowNull: true,
+        defaultValue: 0
     },
     created_at: {
       type: DataTypes.TIME,
