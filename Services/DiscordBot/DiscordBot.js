@@ -19,7 +19,7 @@ function isASCII(str) {
     return /^[\x00-\x7F]*$/.test(str);
 }
 
-function message(message){
+var message = function message(message){
     var logger = ServiceManager.getLogger();
     try{
         if (message.content.substring(0, discordBotConfig.prefix.length) === discordBotConfig.prefix) {
