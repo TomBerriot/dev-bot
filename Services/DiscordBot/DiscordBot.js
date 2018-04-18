@@ -26,6 +26,9 @@ function devMemesCommand(message){
 
     DevMemesFactory.getRandomMeme()
         .then(meme=>{
+            if(meme.imgSource.includes('i.minus.com')){
+                devMemesCommand(message);   
+            }
             message.channel.send(
                 '```asciidoc'+
                 '\n# ' + meme.title +
