@@ -28,6 +28,7 @@ function devMemesCommand(message){
         .then(meme=>{
             if(meme.imgSource.includes('i.minus.com')){
                 devMemesCommand(message);   
+                return 0;
             }
             message.channel.send(
                 '```asciidoc'+
