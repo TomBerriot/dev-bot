@@ -47,7 +47,4 @@ let TumblrApi = (function () {
     };
 })();
 
-module.exports = {
-    TumblrApi,
-    TumblrClient
-};
+module.exports = TumblrApi;

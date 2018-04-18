@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 const DevMemesFactory = require('../../SourceManager/DevMemesFactory').DevMemesFactory;
+const AnimeFactory = require('../../SourceManager/AnimeFactory').AnimeFactory;
 
 let ServiceManager = null;
 
@@ -81,6 +82,11 @@ function helpCommand(message){
     );
 }
 
+function opCommand(message){
+    let args = message.content.substring(discordBotConfig.prefix.length).split(' ');
+    AnimeFactory.getRandomOp(args[1]);
+}
+
 function rpsCommand(message){
     let i = Math.floor((Math.random() * 3) + 1);
     let emote = "";
@@ -124,9 +130,9 @@ function message(message){
                 case 'rps':
                     rpsCommand(message);
                     break;
-                case "op":
-
-
+                case 'op':
+                    opCommand(message);
+                    break;
                 case 'help':
                     helpCommand(message);
                     break;

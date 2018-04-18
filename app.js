@@ -5,9 +5,11 @@ const server = require('http').createServer(app);
 
 const ServiceManager = require('./ServiceManager');
 const appRootDir = require('app-root-dir').get();
-const TumblrApi = require('./SourceManager/TumblrApi').TumblrApi;
+const TumblrApi = require('./SourceManager/TumblrApi');
 const DevMemesFactory = require('./SourceManager/DevMemesFactory').DevMemesFactory;
 const DiscordBot = require('./Services/DiscordBot/DiscordBot').DiscordBot;
+const KitsuApi = require('./SourceManager/KitsuApi');
+const AnimeFactory = require('./SourceManager/AnimeFactory').AnimeFactory;
 
 const config = ServiceManager.getConfig();
 
@@ -21,8 +23,10 @@ ServiceManager.getManagementManager().authenticate()
         DiscordBot.setup(ServiceManager);
     })
     .then(() => {
+        KitsuApi.setup(ServiceManager);
         TumblrApi.setup(ServiceManager);
         DevMemesFactory.setup(ServiceManager);
+        AnimeFactory.setup(ServiceManager);
     })
     .then(() => new Promise((resolve, reject) => {
         /**
