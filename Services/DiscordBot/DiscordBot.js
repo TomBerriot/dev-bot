@@ -96,7 +96,9 @@ function opCommand(message){
     AnimeFactory.getRandomAnime(args[1]).then(async anime => {
         let videoUrl = await Youtube.getVideo(anime + ' opening');
         if(videoUrl === undefined){
+            console.log(videoUrl === undefined)
             opCommand(message);
+            return 0;
         }
         /*const embed = new Discord.RichEmbed();
         embed.setURL(videoUrl);
@@ -112,6 +114,7 @@ function edCommand(message){
         let videoUrl = await Youtube.getVideo(anime + ' ending');
         if(videoUrl === undefined){
             edCommand(message);
+            return 0;
         }
         /*const embed = new Discord.RichEmbed();
         embed.setURL(videoUrl);
