@@ -12,11 +12,22 @@ module.exports = {
         token: process.env.TUMBLR_TOKEN,
         tokenSecret: process.env.TUMBLR_TOKEN_SECRET,
     },
+    /*
     kitsuApi: {
         clientId: process.env.KITSU_CLIENT_ID,
         clientSecret: process.env.KITSU_CLIENT_SECRET,
         username: process.env.KITSU_USERNAME,
         password: process.env.KITSU_PASSWORD,
+    },*/
+    youtubeApi: {
+        apiKey: process.env.YOUTUBE_API_KEY,/*
+        clientId: process.env.YOUTUBE_CLIENT_ID,
+        clientSecret: process.env.YOUTUBE_CLIENT_SECRET,
+        redirectUrl: process.env.YOUTUBE_REDIRECT_URL,
+        token: process.env.YOUTUBE_TOKEN*/
+    },
+    redis:{
+      url: process.env.REDIS_URL,
     },
     logger: {
         strategies: [

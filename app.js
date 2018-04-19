@@ -9,6 +9,7 @@ const TumblrApi = require('./SourceManager/TumblrApi');
 const DevMemesFactory = require('./SourceManager/DevMemesFactory').DevMemesFactory;
 const DiscordBot = require('./Services/DiscordBot/DiscordBot').DiscordBot;
 const KitsuApi = require('./SourceManager/KitsuApi');
+const YoutubeApi = require('./SourceManager/YoutubeApi');
 const AnimeFactory = require('./SourceManager/AnimeFactory').AnimeFactory;
 
 const config = ServiceManager.getConfig();
@@ -27,11 +28,9 @@ ServiceManager.getManagementManager().authenticate()
         TumblrApi.setup(ServiceManager);
         DevMemesFactory.setup(ServiceManager);
         AnimeFactory.setup(ServiceManager);
+        YoutubeApi.setup(ServiceManager);
     })
     .then(() => new Promise((resolve, reject) => {
-        /**
-         * APP
-         */
         app.use(express.static(`${appRootDir}/app/Public`));
 
         const configServer = config.server;

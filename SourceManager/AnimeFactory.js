@@ -13,8 +13,8 @@ module.exports.AnimeFactory = {
             kitsuSource
         ];
     },
-    getRandomOp: function getRandomOp(username) {
+    getRandomAnime: function getRandomAnime(username) {
         let sourceIndex = Math.floor(Math.random() * AnimeSourceArray.length);
-        return AnimeSourceArray[sourceIndex].getRandomOp(username);
+        return AnimeSourceArray[sourceIndex].getRandomAnime(username);
     },
 };

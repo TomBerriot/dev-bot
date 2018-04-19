@@ -2,9 +2,11 @@ const Logger = require('./Services/Logger/Logger');
 const StrategyFactory = require('./Services/Logger/Strategy/StrategyFactory').StrategyFactory;
 const Config = require('./Services/Config/Config');
 const ManagementManager = require('./Services/DataManager/Management/Manager');
+let Redis = require('ioredis');
 
 let managerSetup = false;
 let logger = null;
+let redisClient = null;
 /**
  * @module ServiceManager
  */
@@ -58,5 +60,13 @@ module.exports = {
     }
     return ManagementManager;
   },
+
+  getRedis: function getRedis() {
+      if (!redisClient) {
+          redisClient = new Redis(this.getConfig().redis.url);
+      }
+      return redisClient;
+  },
+
 
 };

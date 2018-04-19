@@ -2,6 +2,8 @@ const Discord = require('discord.js');
 const bot = new Discord.Client();
 const DevMemesFactory = require('../../SourceManager/DevMemesFactory').DevMemesFactory;
 const AnimeFactory = require('../../SourceManager/AnimeFactory').AnimeFactory;
+const YoutubeApi = require('../../SourceManager/YoutubeApi');
+
 
 let ServiceManager = null;
 
@@ -77,6 +79,8 @@ function helpCommand(message){
         '\n   - ping : Pong !' +
         '\n   - setPrefix [value] : Change the prefix used before commands (reserved to guild owner)' +
         '\n   - devMemes (shortcut : d) : random dev memes across the web ' +
+        '\n   - op [username] : random opening from an anime of your library (only Kitsu.io supported for now) ' +
+        '\n   - ed [username] : random ending from an anime of your library (only Kitsu.io supported for now) ' +
         '\n   - rps : Rock, Paper, Scissors ! ' +
         '\n   - help'+
         '\n' +
@@ -88,7 +92,28 @@ function helpCommand(message){
 
 function opCommand(message){
     let args = message.content.substring(discordBotConfig.prefix.length).split(' ');
-    AnimeFactory.getRandomOp(args[1]);
+    let Youtube = YoutubeApi.getInstance();
+    AnimeFactory.getRandomAnime(args[1]).then(async anime => {
+        let videoUrl = await Youtube.getVideo(anime + ' opening');
+        if(videoUrl === undefined) opCommand(message)
+        /*const embed = new Discord.RichEmbed();
+        embed.setURL(videoUrl);
+        console.log(videoUrl)*/
+        message.channel.send(videoUrl);
+    });
+}
+
+function edCommand(message){
+    let args = message.content.substring(discordBotConfig.prefix.length).split(' ');
+    let Youtube = YoutubeApi.getInstance();
+    AnimeFactory.getRandomAnime(args[1]).then(async anime => {
+        let videoUrl = await Youtube.getVideo(anime + ' ending');
+        if(videoUrl === undefined) edCommand(message)
+        /*const embed = new Discord.RichEmbed();
+        embed.setURL(videoUrl);
+        console.log(videoUrl)*/
+        message.channel.send(videoUrl);
+    });
 }
 
 function rpsCommand(message){
@@ -136,6 +161,9 @@ function message(message){
                     break;
                 case 'op':
                     opCommand(message);
+                    break;
+                case 'ed':
+                    edCommand(message);
                     break;
                 case 'help':
                     helpCommand(message);
