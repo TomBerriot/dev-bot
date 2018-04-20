@@ -130,10 +130,11 @@ function rpsCommand(message){
 
 function message(message){
     let logger = ServiceManager.getLogger();
-    logger.info(message.content);
     try{
         if (message.content.substring(0, discordBotConfig.prefix.length) === discordBotConfig.prefix) {
             let args = message.content.substring(discordBotConfig.prefix.length).split(' ');
+
+            logger.info(message.content + " : author : " + message.author.name + " ; server : " + message.guild.name);
             let cmd = args[0];
             switch(cmd) {
                 case 'setPrefix':
