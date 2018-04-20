@@ -12,8 +12,6 @@ const KitsuClient = function KitsuApi() {
                 'Content-Type': 'application/x-www-form-urlencoded',
             }
         });
-
-
     }catch(error){
         ServiceManager.getLogger().error("KitsuApi connexion : " + error);
     }
@@ -27,7 +25,7 @@ let KitsuApi = (function () {
     let instance;
 
     function createInstance() {
-        return new KitsuClient();;
+        return new KitsuClient();
     }
 
     return {

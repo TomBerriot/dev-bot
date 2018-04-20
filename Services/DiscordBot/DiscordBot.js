@@ -23,7 +23,7 @@ function isASCII(str) {
     return /^[\x00-\x7F]*$/.test(str);
 }
 
-function devMemesCommand(message){
+async function devMemesCommand(message){
     let logger = ServiceManager.getLogger();
 
     DevMemesFactory.getRandomMeme()
@@ -53,7 +53,7 @@ function devMemesCommand(message){
         });
 }
 
-function setPrefixCommand(message){
+async function setPrefixCommand(message){
     let args = message.content.substring(discordBotConfig.prefix.length).split(' ');
 
     if((message.member.id === message.member.guild.ownerID)
@@ -70,17 +70,16 @@ function setPrefixCommand(message){
 
 }
 
-function helpCommand(message){
+async function helpCommand(message){
     message.channel.send(
         '```Markdown' +
         '\n# Actual Prefix : ' + discordBotConfig.prefix+
         '\n' +
         '\n# Commands : ' +
         '\n   - ping : Pong !' +
-        '\n   - setPrefix [value] : Change the prefix used before commands (reserved to guild owner)' +
+        '\n   - setPrefix &lt;value&lt; : Change the prefix used before commands (reserved to guild owner)' +
         '\n   - devMemes (shortcut : d) : random dev memes across the web ' +
-        '\n   - op [username] : random opening from an anime of your library (only Kitsu.io supported for now) ' +
-        '\n   - ed [username] : random ending from an anime of your library (only Kitsu.io supported for now) ' +
+        '\n   - op|ed|oped &lt;kitsu|mal&lt; &lt;username&lt; : random opening/ending from an anime of your library (supports Kitsu.io and MyAnimeList) on youtube' +
         '\n   - rps : Rock, Paper, Scissors ! ' +
         '\n   - help'+
         '\n' +
@@ -90,30 +89,18 @@ function helpCommand(message){
     );
 }
 
-function opCommand(message){
-    let args = message.content.substring(discordBotConfig.prefix.length).split(' ');
-    let Youtube = YoutubeApi.getInstance();
-    AnimeFactory.getRandomAnime(args[1]).then(async anime => {
-        let videoUrl = await Youtube.getVideo(anime + ' opening');
-        if(videoUrl === undefined){
-            console.log(videoUrl === undefined)
-            opCommand(message);
-            return 0;
-        }
-        /*const embed = new Discord.RichEmbed();
-        embed.setURL(videoUrl);
-        console.log(videoUrl)*/
-        message.channel.send(videoUrl);
-    });
-}
 
-function edCommand(message){
+async function opEdCommand(message, opEd){
     let args = message.content.substring(discordBotConfig.prefix.length).split(' ');
     let Youtube = YoutubeApi.getInstance();
-    AnimeFactory.getRandomAnime(args[1]).then(async anime => {
-        let videoUrl = await Youtube.getVideo(anime + ' ending');
-        if(videoUrl === undefined){
-            edCommand(message);
+    AnimeFactory.getRandomAnime(args[1], args[2]).then(async anime => {
+        if(!anime){
+            message.channel.send("Check for the spelling of your username : **" + args[2] + "**");
+        }
+        let videoUrl = await Youtube.getVideo(anime + opEd);
+        if(!videoUrl){
+            console.log(videoUrl);
+            opEdCommand(message, opEd);
             return 0;
         }
         /*const embed = new Discord.RichEmbed();
@@ -167,10 +154,14 @@ function message(message){
                     rpsCommand(message);
                     break;
                 case 'op':
-                    opCommand(message);
+                    opEdCommand(message, 'opening');
                     break;
                 case 'ed':
-                    edCommand(message);
+                    opEdCommand(message, 'ending');
+                    break;
+                case 'oped':
+                    let oped = Math.floor(Math.random() * 2) === 1 ? 'opening' : 'ending';
+                    opEdCommand(message, oped);
                     break;
                 case 'help':
                     helpCommand(message);
