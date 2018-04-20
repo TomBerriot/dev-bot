@@ -93,6 +93,7 @@ async function helpCommand(message){
 async function opEdCommand(message, opEd){
     let args = message.content.substring(discordBotConfig.prefix.length).split(' ');
     let Youtube = YoutubeApi.getInstance();
+
     AnimeFactory.getRandomAnime(args[1], args[2]).then(async anime => {
         if(!anime){
             message.channel.send("Check for the spelling of your username : **" + args[2] + "**");
@@ -129,6 +130,7 @@ function rpsCommand(message){
 
 function message(message){
     let logger = ServiceManager.getLogger();
+    logger.info(message.content);
     try{
         if (message.content.substring(0, discordBotConfig.prefix.length) === discordBotConfig.prefix) {
             let args = message.content.substring(discordBotConfig.prefix.length).split(' ');
