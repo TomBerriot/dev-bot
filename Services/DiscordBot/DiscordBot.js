@@ -134,7 +134,7 @@ function message(message){
         if (message.content.substring(0, discordBotConfig.prefix.length) === discordBotConfig.prefix) {
             let args = message.content.substring(discordBotConfig.prefix.length).split(' ');
 
-            logger.info(message.content + " : author : " + message.author.tag + " ; server : " + message.guild ? message.guild.name : "no guild ");
+            logger.info(message.content + " : author : " + message.author.tag + " ; server : " + (message.guild ? message.guild.name : "no guild "));
             let cmd = args[0];
             switch(cmd) {
                 case 'setPrefix':
