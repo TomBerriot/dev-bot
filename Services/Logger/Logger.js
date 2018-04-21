@@ -6,31 +6,31 @@ const winston = require('winston');
  * @param {Boolean} [options.exitOnError=false]
  */
 const Logger = function Logger(options = {}) {
-  this.options = {};
-  this.options.levels = {
-    emergency: 0,
-    alert: 1,
-    critical: 2,
-    error: 3,
-    warning: 4,
-    notice: 5,
-    info: 6,
-    debug: 7
-  };
-  this.options.colors = {
-    emergency: 'red',
-    alert: 'red',
-    critical: 'red',
-    error: 'red',
-    warning: 'yellow',
-    notice: 'grey',
-    info: 'green',
-    debug: 'blue'
-  };
-  if (typeof options.exitOnError === 'undefined') {
-    this.options.exitOnError = false;
-  }
-  this.winstonLogger = new winston.Logger(this.options);
+	this.options = {};
+	this.options.levels = {
+		emergency: 0,
+		alert: 1,
+		critical: 2,
+		error: 3,
+		warning: 4,
+		notice: 5,
+		info: 6,
+		debug: 7,
+	};
+	this.options.colors = {
+		emergency: 'red',
+		alert: 'red',
+		critical: 'red',
+		error: 'red',
+		warning: 'yellow',
+		notice: 'grey',
+		info: 'green',
+		debug: 'blue',
+	};
+	if (typeof options.exitOnError === 'undefined') {
+		this.options.exitOnError = false;
+	}
+	this.winstonLogger = new winston.Logger(this.options);
 };
 
 /**
@@ -39,7 +39,7 @@ const Logger = function Logger(options = {}) {
  * @description Add a strategy
  */
 Logger.prototype.add = function add(strategy) {
-  strategy.register(this.winstonLogger);
+	strategy.register(this.winstonLogger);
 };
 
 /**
@@ -48,7 +48,7 @@ Logger.prototype.add = function add(strategy) {
  * @description System is unusable
  */
 Logger.prototype.emergency = function emergency(message) {
-  this.winstonLogger.emergency(message);
+	this.winstonLogger.emergency(message);
 };
 
 /**
@@ -57,7 +57,7 @@ Logger.prototype.emergency = function emergency(message) {
  * @description Action must be taken immediately.
  */
 Logger.prototype.alert = function alert(message) {
-  this.winstonLogger.alert(message);
+	this.winstonLogger.alert(message);
 };
 
 /**
@@ -66,7 +66,7 @@ Logger.prototype.alert = function alert(message) {
  * @description Critical conditions.
  */
 Logger.prototype.critical = function critical(message) {
-  this.winstonLogger.critical(message);
+	this.winstonLogger.critical(message);
 };
 
 /**
@@ -76,7 +76,7 @@ Logger.prototype.critical = function critical(message) {
  * be logged and monitored.
  */
 Logger.prototype.error = function error(message) {
-  this.winstonLogger.error(message);
+	this.winstonLogger.error(message);
 };
 
 /**
@@ -85,7 +85,7 @@ Logger.prototype.error = function error(message) {
  * @description Exceptional occurrences that are not errors.
  */
 Logger.prototype.warning = function warning(message) {
-  this.winstonLogger.warning(message);
+	this.winstonLogger.warning(message);
 };
 
 /**
@@ -94,7 +94,7 @@ Logger.prototype.warning = function warning(message) {
  * @description Normal but significant events.
  */
 Logger.prototype.notice = function notice(message) {
-  this.winstonLogger.notice(message);
+	this.winstonLogger.notice(message);
 };
 
 /**
@@ -103,7 +103,7 @@ Logger.prototype.notice = function notice(message) {
  * @description Interesting events.
  */
 Logger.prototype.info = function info(message) {
-  this.winstonLogger.info(message);
+	this.winstonLogger.info(message);
 };
 
 /**
@@ -112,6 +112,6 @@ Logger.prototype.info = function info(message) {
  * @description Detailed debug information.
  */
 Logger.prototype.debug = function debug(message) {
-  this.winstonLogger.debug(message);
+	this.winstonLogger.debug(message);
 };
 module.exports = Logger;

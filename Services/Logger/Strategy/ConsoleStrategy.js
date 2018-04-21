@@ -16,16 +16,16 @@ const winstonConfig = require('winston/lib/winston/config');
  * @param {Boolean} [options.prettyPrint=true]
  */
 const ConsoleStrategy = function ConsoleStrategy(level, name, options = {}) {
-  Strategy.call(this, level, name, options);
-  if (typeof options.prettyPrint === 'undefined') {
-    this.options.prettyPrint = true;
-  }
-  if (typeof options.colorize === 'undefined') {
-    this.options.colorize = true;
-  }
-  this.options.formatter = opt => `${opt.timestamp()} ${winstonConfig.colorize(opt.level, `[${opt.level.toUpperCase()}] `)}${undefined !== opt.message ? opt.message : ''
-    }${opt.meta && Object.keys(opt.meta).length ? `\n\t${JSON.stringify(opt.meta)}` : ''}`;
-  this.transport = winston.transports.Console;
+	Strategy.call(this, level, name, options);
+	if (typeof options.prettyPrint === 'undefined') {
+		this.options.prettyPrint = true;
+	}
+	if (typeof options.colorize === 'undefined') {
+		this.options.colorize = true;
+	}
+	this.options.formatter = opt => `${opt.timestamp()} ${winstonConfig.colorize(opt.level, `[${opt.level.toUpperCase()}] `)}${undefined !== opt.message ? opt.message : ''
+	}${opt.meta && Object.keys(opt.meta).length ? `\n\t${JSON.stringify(opt.meta)}` : ''}`;
+	this.transport = winston.transports.Console;
 };
 
 util.inherits(ConsoleStrategy, Strategy);

@@ -6,9 +6,9 @@ const util = require('util');
  * @returns {Error}
  */
 exports.MissingRequiredParameterError = function MissingRequiredParameterError(message) {
-  Error.captureStackTrace(this);
-  this.message = message;
-  this.name = this.constructor.name;
+	Error.captureStackTrace(this);
+	this.message = message;
+	this.name = this.constructor.name;
 };
 
 util.inherits(exports.MissingRequiredParameterError, Error);

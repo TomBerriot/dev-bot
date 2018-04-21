@@ -11,16 +11,16 @@ const Op = Sequelize.Op;
  * @param {Array} models
  */
 const Repository = function Repository(name, models) {
-  this.name = name;
-  this.models = models;
-  Object.defineProperty(this, 'Name', {
-    get() {
-      return this.name;
-    },
-    set(n) {
-      this.name = n;
-    },
-  });
+	this.name = name;
+	this.models = models;
+	Object.defineProperty(this, 'Name', {
+		get() {
+			return this.name;
+		},
+		set(n) {
+			this.name = n;
+		},
+	});
 };
 
 /**
@@ -31,10 +31,10 @@ const Repository = function Repository(name, models) {
  * @returns {Promise}
  */
 Repository.prototype.findAll = function findAll(exclude = true, include = false, options = {}) {
-  const opt = merge({
-    attributes: { exclude: exclude ? ['created_at', 'updated_at', 'created_by', 'updated_by'] : [] },
-  }, options);
-  return this.models[this.name].findAll(opt);
+	const opt = merge({
+		attributes: { exclude: exclude ? ['created_at', 'updated_at', 'created_by', 'updated_by'] : [] },
+	}, options);
+	return this.models[this.name].findAll(opt);
 };
 
 /**
@@ -46,10 +46,10 @@ Repository.prototype.findAll = function findAll(exclude = true, include = false,
  * @returns {Promise}
  */
 Repository.prototype.findById = function findById(id, exclude = true, include = false, options = {}) {
-  const opt = merge({
-    attributes: { exclude: exclude ? ['created_at', 'updated_at', 'created_by', 'updated_by'] : [] },
-  }, options);
-  return this.models[this.name].findById(id, opt);
+	const opt = merge({
+		attributes: { exclude: exclude ? ['created_at', 'updated_at', 'created_by', 'updated_by'] : [] },
+	}, options);
+	return this.models[this.name].findById(id, opt);
 };
 
 /**
@@ -58,7 +58,7 @@ Repository.prototype.findById = function findById(id, exclude = true, include = 
  * @param {Transaction} [transaction=null]
  */
 Repository.prototype.add = function add(params, transaction = null) {
-  return this.models[this.name].create(params, { transaction });
+	return this.models[this.name].create(params, { transaction });
 };
 
 /**
@@ -68,11 +68,11 @@ Repository.prototype.add = function add(params, transaction = null) {
  * @param transaction
  */
 Repository.prototype.findOrCreate = function findOrCreate(exclude, params, transaction) {
-  let opt = merge({
-    attributes: { exclude: exclude ? ['created_at', 'updated_at', 'created_by', 'updated_by'] : [] },
-  }, params);
-  opt = merge(opt, transaction);
-  return this.models[this.name].findOrCreate(opt);
+	let opt = merge({
+		attributes: { exclude: exclude ? ['created_at', 'updated_at', 'created_by', 'updated_by'] : [] },
+	}, params);
+	opt = merge(opt, transaction);
+	return this.models[this.name].findOrCreate(opt);
 };
 
 /**
@@ -83,15 +83,15 @@ Repository.prototype.findOrCreate = function findOrCreate(exclude, params, trans
  * @throws The id must be specified
  */
 Repository.prototype.modifyById = function modifyById(id, params, transaction = null) {
-  if (!id) {
-    throw new Errors.MissingRequiredParameterError('The id must be specified');
-  }
-  return this.models[this.name].findById(id).then((result) => {
-    if (!result) {
-      return null;
-    }
-    return result.update(params, { where: { id }, transaction, individualHooks: true });
-  });
+	if (!id) {
+		throw new Errors.MissingRequiredParameterError('The id must be specified');
+	}
+	return this.models[this.name].findById(id).then((result) => {
+		if (!result) {
+			return null;
+		}
+		return result.update(params, { where: { id }, transaction, individualHooks: true });
+	});
 };
 
 /**
@@ -101,10 +101,10 @@ Repository.prototype.modifyById = function modifyById(id, params, transaction = 
  * @returns {Promise}
  */
 Repository.prototype.removeById = function removeById(id, transaction = null) {
-  if (!id) {
-    throw new Errors.MissingRequiredParameterError('The id must be specified');
-  }
-  return this.models[this.name].destroy({ where: { id }, transaction });
+	if (!id) {
+		throw new Errors.MissingRequiredParameterError('The id must be specified');
+	}
+	return this.models[this.name].destroy({ where: { id }, transaction });
 };
 
 /**
@@ -112,6 +112,6 @@ Repository.prototype.removeById = function removeById(id, transaction = null) {
  * @returns {Promise}
  */
 Repository.prototype.count = function count() {
-  return this.models[this.name].count();
+	return this.models[this.name].count();
 };
 module.exports = Repository;

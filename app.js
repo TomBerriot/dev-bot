@@ -14,49 +14,50 @@ const AnimeFactory = require('./SourceManager/AnimeFactory').AnimeFactory;
 
 const config = ServiceManager.getConfig();
 
-app.get('/', function (req, res) {
-    res.send('');
+app.get('/', function(req, res) {
+	res.send('');
 });
 
 
 ServiceManager.getManagementManager().authenticate()
-    .then(() =>{
-        DiscordBot.setup(ServiceManager);
-    })
-    .then(() => {
-        KitsuApi.setup(ServiceManager);
-        TumblrApi.setup(ServiceManager);
-        DevMemesFactory.setup(ServiceManager);
-        AnimeFactory.setup(ServiceManager);
-        YoutubeApi.setup(ServiceManager);
-    })
-    .then(() => new Promise((resolve, reject) => {
-        app.use(express.static(`${appRootDir}/app/Public`));
+	.then(() =>{
+		DiscordBot.setup(ServiceManager);
+	})
+	.then(() => {
+		KitsuApi.setup(ServiceManager);
+		TumblrApi.setup(ServiceManager);
+		DevMemesFactory.setup(ServiceManager);
+		AnimeFactory.setup(ServiceManager);
+		YoutubeApi.setup(ServiceManager);
+	})
+	.then(() => new Promise((resolve, reject) => {
+		app.use(express.static(`${appRootDir}/app/Public`));
 
-        const configServer = config.server;
+		const configServer = config.server;
 
-        try {
-            server.listen(configServer.port, () => {
-                resolve();
-            });
-        } catch (e) {
-            reject(e);
-        }
-    }))
-    .then(() => {
-        process.once('SIGTERM', () => {
-            server.close((v) => {
-                console.log(v);
-            });
-            process.exit();
-        });
-        process.once('SIGINT', () => {
-            server.close((v) => {
-                console.log(v);
-            });
-            process.exit();
-        });
-    })
-    .catch((err) => {
-        ServiceManager.getLogger().error("App error : " + err);
-    });
+		try {
+			server.listen(configServer.port, () => {
+				resolve();
+			});
+		}
+		catch (e) {
+			reject(e);
+		}
+	}))
+	.then(() => {
+		process.once('SIGTERM', () => {
+			server.close((v) => {
+				console.log(v);
+			});
+			process.exit();
+		});
+		process.once('SIGINT', () => {
+			server.close((v) => {
+				console.log(v);
+			});
+			process.exit();
+		});
+	})
+	.catch((err) => {
+		ServiceManager.getLogger().error('App error : ' + err);
+	});
