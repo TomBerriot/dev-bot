@@ -95,11 +95,13 @@ async function helpCommand(message) {
 async function opEdCommand(message, opEd) {
 	const args = message.content.substring(discordBotConfig.prefix.length).split(' ');
 	const Youtube = YoutubeApi.getInstance();
+	const logger = ServiceManager.getLogger();
 
 	AnimeFactory.getRandomAnime(args[1], args[2]).then(async anime => {
 		if(!anime) {
 			message.channel.send('Check for the spelling of your username : **' + args[2] + '**');
 		}
+		logger.info(anime)
 		const videoUrl = await Youtube.getVideo(anime + opEd);
 		if(!videoUrl) {
 			console.log(videoUrl);
