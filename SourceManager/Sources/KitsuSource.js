@@ -15,6 +15,9 @@ KitsuApiSource.prototype.getRandomAnime = async function getRandomAnime(username
 		filter: { name: username },
 	});
 	console.log(user.data)
+	console.log(user.data[0])
+	console.log(user.data[0].id)
+
 	const libraryEntries = await kitsuApi.get('libraryEntries', {
 		page:{ limit: 1 },
 		fields:{ libraryEntries: 'status' },
