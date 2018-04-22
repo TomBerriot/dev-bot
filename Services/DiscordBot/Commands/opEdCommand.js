@@ -16,7 +16,7 @@ const getAnimeVideoId = async function getAnimeVideoId(message, args) {
 			return anime;
 		}
 		try{
-			const videoId = await Youtube.getVideoId(anime + opEd);
+			const videoId = await Youtube.getVideoId(`${anime } ${ opEd}`);
 			// console.log(`youtube id ${ videoId } anime : ${ anime}`);
 			if(!videoId) {
 				return getAnimeVideoId(message, args);
