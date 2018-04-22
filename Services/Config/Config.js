@@ -26,6 +26,9 @@ module.exports = {
         redirectUrl: process.env.YOUTUBE_REDIRECT_URL,
         token: process.env.YOUTUBE_TOKEN*/
 	},
+	google:{
+		shortenerApiKey: process.env.GOOGLE_URL_SHORTENER_API_KEY,
+	},
 	redis:{
 		url: process.env.REDIS_URL,
 	},

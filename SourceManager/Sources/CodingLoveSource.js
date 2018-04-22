@@ -23,7 +23,7 @@ CodingLoveSource.prototype.getRandomMeme = function getRandomMeme() {
 			const dom = new JSDOM(post.body);
 			return new Meme(post.summary, dom.window.document.querySelector('img').src);
 		}).catch(error=>{
-			ServiceManager.getLogger().error('Coding love random meme : ' + error);
+			ServiceManager.getLogger().error(`Coding love random meme : ${ error}`);
 		});
 };
 

@@ -15,7 +15,7 @@ const TumblrClient = function TumblrApi() {
 		});
 	}
 	catch(error) {
-		ServiceManager.getLogger().error('Tumblr connexion : ' + error);
+		ServiceManager.getLogger().error(`Tumblr connexion : ${ error}`);
 	}
 };
 

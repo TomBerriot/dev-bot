@@ -59,5 +59,5 @@ ServiceManager.getManagementManager().authenticate()
 		});
 	})
 	.catch((err) => {
-		ServiceManager.getLogger().error('App error : ' + err);
+		ServiceManager.getLogger().error(`App error : ${ err}`);
 	});

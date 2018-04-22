@@ -14,7 +14,7 @@ const KitsuClient = function KitsuApi() {
 		});
 	}
 	catch(error) {
-		ServiceManager.getLogger().error('KitsuApi connexion : ' + error);
+		ServiceManager.getLogger().error(`KitsuApi connexion : ${ error}`);
 	}
 };
 

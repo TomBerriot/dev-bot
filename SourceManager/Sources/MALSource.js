@@ -12,7 +12,7 @@ const MyAnimeListSource = function MyAnimeListSource(serviceManager, source = nu
 };
 
 MyAnimeListSource.prototype.getRandomAnime = async function getRandomAnime(username) {
-	const url = 'https://myanimelist.net/malappinfo.php?u=' + username + '&status=completed&type=anime';
+	const url = `https://myanimelist.net/malappinfo.php?u=${ username }&status=completed&type=anime`;
 
 	return new Promise(function(resolve, reject) {
 		axios.get(url).then(response => {
@@ -26,7 +26,7 @@ MyAnimeListSource.prototype.getRandomAnime = async function getRandomAnime(usern
 			});
 		})
 			.catch(error => {
-				ServiceManager.getLogger().error('myanimelistsource: ' + error);
+				ServiceManager.getLogger().error(`myanimelistsource: ${ error}`);
 			});
 	});
 };
