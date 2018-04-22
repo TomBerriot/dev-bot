@@ -1,6 +1,5 @@
 const CodingLoveSource = require('./Sources/CodingLoveSource');
 
-
 let ServiceManager = null;
 
 let DevMemesSourceArray = null;

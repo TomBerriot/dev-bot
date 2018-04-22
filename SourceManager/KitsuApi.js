@@ -9,7 +9,6 @@ const KitsuClient = function KitsuApi() {
 		this.client = new Kitsu({
 			headers: {
 				'User-Agent': 'pedo-dev-bot/1.0.0 (github.com/Cleverdawn/pedo-dev-bot)',
-				'Content-Type': 'application/x-www-form-urlencoded',
 			},
 		});
 	}

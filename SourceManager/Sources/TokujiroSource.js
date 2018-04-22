@@ -1,18 +1,17 @@
 const Post = require('../Post');
 const Source = require('../abs/Source');
-const jsdom = require('jsdom');
-const { JSDOM } = jsdom;
 let tumblrClient = null;
 
 let ServiceManager = null;
 
-const CodingLoveSource = function CodingLoveSource(serviceManager, source) {
+const TokujiroSource = function TokujiroSource(serviceManager, source) {
 	Source.call(this, source);
+	this.source = source;
 	ServiceManager = serviceManager;
 	tumblrClient = require('../TumblrApi').getInstance().getClient();
 };
 
-CodingLoveSource.prototype.getRandomMeme = function getRandomMeme() {
+TokujiroSource.prototype.getRandomGirl = function getRandomGirl() {
 	return tumblrClient.blogInfo(this.source)
 		.then(data=>{
 			const offset = Math.floor(Math.random() * data.blog.total_posts);
@@ -20,11 +19,10 @@ CodingLoveSource.prototype.getRandomMeme = function getRandomMeme() {
 		})
 		.then(data=>{
 			const post = data.posts[0];
-			const dom = new JSDOM(post.body);
-			return new Post(post.summary, dom.window.document.querySelector('img').src);
+			return new Post(`${post.summary !== '' ? `${post.summary },` : '' } Tags [${ post.tags.toString() }]`, post.photos[0].original_size.url);
 		}).catch(error=>{
-			ServiceManager.getLogger().error(`Coding love random meme : ${ error}`);
+			ServiceManager.getLogger().error(`TokujiroSource random girl : ${ error}`);
 		});
 };
 
-module.exports = CodingLoveSource;
+module.exports = TokujiroSource;
