@@ -73,6 +73,11 @@ module.exports.DiscordBot = {
 
 		bot.on('ready', ready);
 		bot.on('message', message);
+		bot.on('messageReactionAdd', (reaction, user) => {
+			if(user.id !== bot.user.id) {
+
+			}
+		});
 
 		return bot.login(discordBotConfig.token);
 	},

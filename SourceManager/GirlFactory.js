@@ -1,4 +1,5 @@
 const TokujiroSource = require('../SourceManager/Sources/TokujiroSource');
+const IgladSource = require('../SourceManager/Sources/IgladSource');
 
 let ServiceManager = null;
 
@@ -9,9 +10,11 @@ module.exports.GirlFactory = {
 	setup: function setup(serviceManager) {
 		ServiceManager = serviceManager;
 		const tokujiroSource = new TokujiroSource(ServiceManager, 'tokujiro.tumblr.com');
+		const igladSource = new IgladSource(ServiceManager, 'igladbehh.tumblr.com');
 
 		GirlSourceArray = [
 			tokujiroSource,
+			igladSource,
 		];
 	},
 	getRandomGirl: function getRandomGirl() {

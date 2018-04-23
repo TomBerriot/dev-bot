@@ -30,7 +30,7 @@ const getAnimeVideoId = async function getAnimeVideoId(message, args) {
 		return getAnimeVideoId(message, args);
 	});
 };
-
+//https://discord.js.org/#/docs/main/stable/class/MessageEmbedVideo
 const execute = async function execute(message, args) {
 	const Youtube = YoutubeApi.getInstance();
 	const logger = ServiceManager.getLogger();
