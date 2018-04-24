@@ -30,19 +30,21 @@ const sendRandomMeme = async function sendRandomMeme(message, args) {
 	});
 };
 
-const execute = async function execute(message, args, userReaction) {
+const execute = async function execute(message, args, reactionUser) {
 	const logger = ServiceManager.getLogger();
 
 	const User = ServiceManager.getManagementManager().get('User');
 
 	let userTag = message.author.tag;
-	if(userReaction) userTag = userReaction.tag;
+	if(reactionUser) userTag = reactionUser.tag;
 
 	User.findOrCreate(false, { where:{ username:userTag } })
 		.then(user=>{
 			user = user[0];
 			if(((user.memeCounter + 1) % 10) === 0) {
-				message.reply('Stop lazing around, go work you lil\' cunt. :japanese_goblin: ');
+				const scoldStr = 'Stop lazing around, go work you lil\' cunt. :japanese_goblin: ';
+				if(reactionUser) message.author.send(scoldStr);
+				else reactionUser.send(scoldStr);
 			}
 
 			user.update({ memeCounter: user.memeCounter + 1 });
@@ -55,7 +57,7 @@ const reactionHandler = async function reactionHandler(reaction, user) {
 	const logger = ServiceManager.getLogger();
 
 	if(reaction.count === 2 && reaction._emoji.name === '➕') {
-		execute(reaction.message, null, userReaction);
+		execute(reaction.message, null, user);
 	}
 };
 
