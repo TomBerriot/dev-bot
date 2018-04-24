@@ -1,7 +1,7 @@
-/* eslint-disable prefer-template */
 const ServiceManager = require('../../../ServiceManager');
 const DevMemesFactory = require('../../../SourceManager/DevMemesFactory').DevMemesFactory;
 
+const NonceIdentifier = 666666;
 
 const sendRandomMeme = async function sendRandomMeme(message, args) {
 	const logger = ServiceManager.getLogger();
@@ -11,7 +11,10 @@ const sendRandomMeme = async function sendRandomMeme(message, args) {
 			sendRandomMeme(message, args);
 			return 0;
 		}
-		message.channel.send('```asciidoc\n# ' + meme.title + '```', { files: [meme.imgSource] })
+		message.channel.send(`# ${ meme.title}`, { files: [meme.imgSource], nonce: NonceIdentifier, code: true })
+			.then(msg=>{
+				return msg.react('➕');
+			})
 			.catch(error=>{
 				logger.error(`${error } ${ meme.title } ${ meme.imgSource } error code : ${ error.code}`);
 				if(error.code === 40005 || error.code === 413) {
@@ -27,12 +30,15 @@ const sendRandomMeme = async function sendRandomMeme(message, args) {
 	});
 };
 
-const execute = async function execute(message, args) {
+const execute = async function execute(message, args, userReaction) {
 	const logger = ServiceManager.getLogger();
 
 	const User = ServiceManager.getManagementManager().get('User');
 
-	User.findOrCreate(false, { where:{ username:message.author.tag } })
+	let userTag = message.author.tag;
+	if(userReaction) userTag = userReaction.tag;
+
+	User.findOrCreate(false, { where:{ username:userTag } })
 		.then(user=>{
 			user = user[0];
 			if(((user.memeCounter + 1) % 10) === 0) {
@@ -45,6 +51,14 @@ const execute = async function execute(message, args) {
 	sendRandomMeme(message, args);
 };
 
+const reactionHandler = async function reactionHandler(reaction, user) {
+	const logger = ServiceManager.getLogger();
+
+	if(reaction.count === 2 && reaction._emoji.name === '➕') {
+		execute(reaction.message, null, userReaction);
+	}
+};
+
 module.exports = {
 	name: 'devMemes',
 	args: false,
@@ -53,5 +67,7 @@ module.exports = {
 	guildOnly: false,
 	ownerGuildOnly:false,
 	description: 'Get an infinite number of developers memes !',
+	nonce: NonceIdentifier,
 	execute,
+	reactionHandler,
 };

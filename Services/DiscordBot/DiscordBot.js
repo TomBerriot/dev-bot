@@ -54,6 +54,24 @@ function message(message) {
 	}
 }
 
+function messageReactionAdd(reaction, user) {
+	const logger = ServiceManager.getLogger();
+	try{
+		if(user.id !== bot.user.id) {
+
+			logger.info(`reaction : ${reaction._emoji.name} ; author : ${ user.tag } ; server : ${ reaction.message.guild ? reaction.message.guild.name : 'no guild '}`);
+
+			const command = bot.reactionsHandlers.get(reaction.message.nonce);
+
+			if (!command) return;
+			command.reactionHandler(reaction, user);
+		}
+	}
+	catch(error) {
+		logger.error(`Bot On messageReactionAdd error ${ error}`);
+	}
+}
+
 module.exports.DiscordBot = {
 
 	setup: function setup(serviceManager) {
@@ -61,6 +79,7 @@ module.exports.DiscordBot = {
 
 		bot = new Discord.Client();
 		bot.commands = new Discord.Collection();
+		bot.reactionsHandlers = new Discord.Collection();
 
 		discordBotConfig = ServiceManager.getConfig().discordBot;
 
@@ -69,15 +88,12 @@ module.exports.DiscordBot = {
 		for (const file of commandFiles) {
 			const command = require(`./Commands/${file}`);
 			bot.commands.set(command.name, command);
-		}
+			if(command.nonce) bot.reactionsHandlers.set(command.nonce, command);
 
+		}
 		bot.on('ready', ready);
 		bot.on('message', message);
-		bot.on('messageReactionAdd', (reaction, user) => {
-			if(user.id !== bot.user.id) {
-
-			}
-		});
+		bot.on('messageReactionAdd', messageReactionAdd);
 
 		return bot.login(discordBotConfig.token);
 	},

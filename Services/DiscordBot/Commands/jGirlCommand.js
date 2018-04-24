@@ -1,11 +1,14 @@
 const ServiceManager = require('../../../ServiceManager');
 const GirlFactory = require('../../../SourceManager/GirlFactory').GirlFactory;
 
+const NonceIdentifier = 5555555;
+
 const execute = async function execute(message, args) {
 	const logger = ServiceManager.getLogger();
 
+	// https://she-cool.tumblr.com/
 	GirlFactory.getRandomGirl().then(girl=>{
-		message.channel.send(`\`\`\`asciidoc\n# ${ girl.title }\`\`\``, { files: girl.imgSource })
+		message.channel.send(`# ${ girl.title}`, { files: girl.imgSource, nonce: NonceIdentifier, code: true })
 			.then(msg=>{
 				return msg.react('➕');
 			})
@@ -20,6 +23,17 @@ const execute = async function execute(message, args) {
 	});
 };
 
+const reactionHandler = async function reactionHandler(reaction, user) {
+	const logger = ServiceManager.getLogger();
+
+	if(reaction.count === 2 && reaction._emoji.name === '➕') {
+		execute(reaction.message);
+	}
+
+
+};
+
+
 module.exports = {
 	name: 'jgirl',
 	args: false,
@@ -28,5 +42,7 @@ module.exports = {
 	guildOnly: false,
 	ownerGuildOnly:false,
 	description: 'Send random beautiful japanese girls <3',
+	nonce: NonceIdentifier,
 	execute,
+	reactionHandler,
 };
