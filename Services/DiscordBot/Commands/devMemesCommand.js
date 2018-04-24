@@ -43,8 +43,8 @@ const execute = async function execute(message, args, reactionUser) {
 			user = user[0];
 			if(((user.memeCounter + 1) % 10) === 0) {
 				const scoldStr = 'Stop lazing around, go work you lil\' cunt. :japanese_goblin: ';
-				if(reactionUser) message.author.send(scoldStr);
-				else reactionUser.send(scoldStr);
+				if(reactionUser) reactionUser.send(scoldStr);
+				else message.author.send(scoldStr);
 			}
 
 			user.update({ memeCounter: user.memeCounter + 1 });
