@@ -38,7 +38,7 @@ class JGirlsCommand extends Command {
 		logger.info(`reaction : ${reaction._emoji.name} ; author : ${ user.tag } ; server : ${ reaction.message.guild ? reaction.message.guild.name : 'no guild '}`);
 
 		if(reaction.count === 2 && reaction._emoji.name === '➕') {
-			execute(reaction.message);
+			this.execute(reaction.message);
 		}
 
 
