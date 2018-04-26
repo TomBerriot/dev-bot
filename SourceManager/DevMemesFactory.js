@@ -4,8 +4,7 @@ let ServiceManager = null;
 
 let DevMemesSourceArray = null;
 
-module.exports.DevMemesFactory = {
-
+module.exports = {
 	setup: function setup(serviceManager) {
 		ServiceManager = serviceManager;
 		const CodingLove = new CodingLoveSource(ServiceManager, 'thecodinglove.com');
@@ -18,3 +17,4 @@ module.exports.DevMemesFactory = {
 		return DevMemesSourceArray[sourceIndex].getRandomMeme();
 	},
 };
+

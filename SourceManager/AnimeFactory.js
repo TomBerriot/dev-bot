@@ -5,7 +5,7 @@ let ServiceManager = null;
 
 let AnimeSourceArray = null;
 
-module.exports.AnimeFactory = {
+module.exports = {
 
 	setup: function setup(serviceManager) {
 		ServiceManager = serviceManager;

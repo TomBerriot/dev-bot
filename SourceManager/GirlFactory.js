@@ -5,7 +5,7 @@ let ServiceManager = null;
 
 let GirlSourceArray = null;
 
-module.exports.GirlFactory = {
+module.exports = {
 
 	setup: function setup(serviceManager) {
 		ServiceManager = serviceManager;

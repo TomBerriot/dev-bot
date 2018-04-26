@@ -1,6 +1,8 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 const appRootDir = require('app-root-dir').get();
+const path = require('path');
+
 
 let ServiceManager = null;
 
@@ -58,9 +60,6 @@ function messageReactionAdd(reaction, user) {
 	const logger = ServiceManager.getLogger();
 	try{
 		if(user.id !== bot.user.id) {
-
-			logger.info(`reaction : ${reaction._emoji.name} ; author : ${ user.tag } ; server : ${ reaction.message.guild ? reaction.message.guild.name : 'no guild '}`);
-
 			const command = bot.reactionsHandlers.get(reaction.message.nonce);
 
 			if (!command) return;
@@ -72,9 +71,9 @@ function messageReactionAdd(reaction, user) {
 	}
 }
 
-module.exports.DiscordBot = {
+module.exports = {
 
-	setup: function setup(serviceManager) {
+	async setup(serviceManager) {
 		ServiceManager = serviceManager;
 
 		bot = new Discord.Client();
@@ -83,14 +82,16 @@ module.exports.DiscordBot = {
 
 		discordBotConfig = ServiceManager.getConfig().discordBot;
 
-		const commandFiles = fs.readdirSync(`${appRootDir }/Services/DiscordBot/Commands`);
+		let folderPath = `${appRootDir }/Services/DiscordBot/Commands`;
+		const commandFiles = fs.readdirSync(folderPath).filter((file) => fs.lstatSync(path.join(folderPath, file)).isFile());
 
-		for (const file of commandFiles) {
-			const command = require(`./Commands/${file}`);
+		for (let file of commandFiles) {
+			let commandModule = await import(`./Commands/${file}`);
+			let command = commandModule.default;
 			bot.commands.set(command.name, command);
 			if(command.nonce) bot.reactionsHandlers.set(command.nonce, command);
-
 		}
+
 		bot.on('ready', ready);
 		bot.on('message', message);
 		bot.on('messageReactionAdd', messageReactionAdd);

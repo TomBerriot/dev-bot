@@ -1,15 +1,17 @@
-const ServiceManager = require('../../../ServiceManager');
-const DiscordBot = require('../DiscordBot').DiscordBot;
+import DiscordBot from '../DiscordBot';
+import ServiceManager from '../../../ServiceManager';
+import Command from './abs/Command';
 
-module.exports = {
-	name: 'help',
-	args: false,
-	aliases: ['h'],
-	usage: '[command name]',
-	guildOnly: false,
-	ownerGuildOnly:false,
-	description: 'Get explanations on the commands of the bot and the state of the server',
-	async execute(message, args) {
+class HelpCommand extends Command {
+	constructor () {
+		super();
+		this.name= 'help';
+		this.aliases= ['h'];
+		this.usage= '[command name]';
+		this.description= 'Get explanations on the commands of the bot and the state of the server';
+	}
+
+	async execute(message, args){
 		message.channel.send(
 			`${'```Markdown' +
 			'\n# Actual Prefix : '}${ DiscordBot.getPrefix() }\n` +
@@ -27,5 +29,7 @@ module.exports = {
 			'\n   - Feel free to collaborate on the developpement of the bot : https://github.com/Cleverdawn/pedo-dev-bot.git ' +
 			'```'
 		);
-	},
-};
+	}
+}
+
+export default new HelpCommand();
