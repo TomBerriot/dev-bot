@@ -12,6 +12,7 @@ const IgladSource = function IgladSource(serviceManager, source) {
 };
 
 IgladSource.prototype.getRandomGirl = function getRandomGirl() {
+	console.log(this.source)
 	return tumblrClient.blogInfo(this.source)
 		.then(data=>{
 			const offset = Math.floor(Math.random() * data.blog.total_posts);
@@ -20,11 +21,10 @@ IgladSource.prototype.getRandomGirl = function getRandomGirl() {
 		.then(data=>{
 			const post = data.posts[0];
 			const urls = [];
-
 			for(let i = 0; i < post.photos.length; i++) {
 				urls.push(post.photos[i].original_size.url);
 			}
-			return new Post(`${post.summary !== '' ? `${post.summary },` : '' } Tags [${ post.tags.toString() }]`, urls);
+			return new Post(`${post.summary !== '' ? `${post.summary },` : '' } Tags [${ post.tags.toString() }]`, urls, post.short_url);
 		}).catch(error=>{
 			ServiceManager.getLogger().error(`IgladSource random girl : ${ error}`);
 		});

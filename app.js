@@ -15,10 +15,14 @@ const AnimeFactory = require('./SourceManager/AnimeFactory');
 
 const config = ServiceManager.getConfig();
 
+//APP SERVICES SETUP
+
+//Http Server request call back
 app.get('/', function(req, res) {
 	res.send('');
 });
 
+//HTTP server listening setup
 let ServerStartup = new Promise((resolve, reject) => {
 	app.use(express.static(`${appRootDir}/app/Public`));
 
@@ -36,13 +40,17 @@ let ServerStartup = new Promise((resolve, reject) => {
 
 ServerStartup.then(async  ()=>{
 	try{
+		//BD connexion setup
 		await ServiceManager.getManagementManager().authenticate();
+		// Then, DiscordBot connexion setup
 		await DiscordBot.setup(ServiceManager);
 
+		//APIS connexion setup
 		TumblrApi.setup(ServiceManager);
 		KitsuApi.setup(ServiceManager);
 		YoutubeApi.setup(ServiceManager);
 
+		//Content Factories setup
 		DevMemesFactory.setup(ServiceManager);
 		GirlFactory.setup(ServiceManager);
 		AnimeFactory.setup(ServiceManager);

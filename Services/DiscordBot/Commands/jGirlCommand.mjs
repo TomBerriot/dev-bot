@@ -17,7 +17,7 @@ class JGirlsCommand extends Command {
 		// https://she-cool.tumblr.com/
 		let self = this;
 		GirlFactory.getRandomGirl().then(girl=>{
-			message.channel.send(`# ${ girl.title}`, { files: girl.imgSource, nonce: self.nonce, code: true })
+			message.channel.send(`# ${ girl.title} ${ girl.sourceLink ? ' , Source : ' + girl.sourceLink : ''}   `, { files: girl.imgSource, nonce: self.nonce, code: true })
 				.then(msg=>{
 					return msg.react('➕');
 				})
