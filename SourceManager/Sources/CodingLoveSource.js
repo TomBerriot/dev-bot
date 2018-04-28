@@ -8,16 +8,16 @@ let ServiceManager = null;
 
 const CodingLoveSource = function CodingLoveSource(serviceManager, source) {
 	Source.call(this, source);
+	this.source = source;
 	ServiceManager = serviceManager;
 	tumblrClient = require('../TumblrApi').getInstance().getClient();
 };
 
 CodingLoveSource.prototype.getRandomMeme = function getRandomMeme() {
 	console.log("tttdfdfdf")
-	console.log(tumblrClient)
 	return tumblrClient.blogInfo(this.source)
 		.then(data=>{
-			console.log("data")
+			console.log(data)
 			const offset = Math.floor(Math.random() * data.blog.total_posts);
 			return tumblrClient.blogPosts(this.source, { offset: offset, limit: 1 });
 		})
