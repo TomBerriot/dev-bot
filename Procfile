@@ -1,1 +1,1 @@
-web: npm run start
+web: node --experimental-modules app.js
