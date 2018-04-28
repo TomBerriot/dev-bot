@@ -21,6 +21,7 @@ CodingLoveSource.prototype.getRandomMeme = function getRandomMeme() {
 		.then(data=>{
 			const post = data.posts[0];
 			const dom = new JSDOM(post.body);
+			console.log(data)
 			return new Post(post.summary, dom.window.document.querySelector('img').src);
 		}).catch(error=>{
 			ServiceManager.getLogger().error(`Coding love random meme : ${ error}`);

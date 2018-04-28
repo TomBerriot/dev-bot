@@ -15,11 +15,14 @@ class DevMemesCommand extends Command {
 		const logger = ServiceManager.getLogger();
 
 		let self = this;
+
+		console.log(message.content)
 		DevMemesFactory.getRandomMeme().then(meme=>{
 			if(meme.imgSource.includes('i.minus.com')) {
 				self.sendRandomMeme(message, args);
 				return 0;
 			}
+			console.log(meme)
 			message.channel.send(`# ${ meme.title}`, { files: [meme.imgSource], nonce: self.nonce, code: true })
 				.then(msg=>{
 					return msg.react('➕');
