@@ -14,6 +14,7 @@ const CodingLoveSource = function CodingLoveSource(serviceManager, source) {
 
 CodingLoveSource.prototype.getRandomMeme = function getRandomMeme() {
 	console.log("tttdfdfdf")
+	console.log(tumblrClient)
 	return tumblrClient.blogInfo(this.source)
 		.then(data=>{
 			console.log("data")
