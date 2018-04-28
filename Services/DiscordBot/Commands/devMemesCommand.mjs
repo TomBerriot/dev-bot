@@ -17,7 +17,10 @@ class DevMemesCommand extends Command {
 		let self = this;
 
 		console.log(message.content)
+		console.log(self)
+		logger.error(`Dev Memes Command : test`);
 		DevMemesFactory.getRandomMeme().then(meme=>{
+			console.log(meme)
 			if(meme.imgSource.includes('i.minus.com')) {
 				self.sendRandomMeme(message, args);
 				return 0;
