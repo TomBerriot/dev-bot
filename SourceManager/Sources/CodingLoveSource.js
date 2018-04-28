@@ -13,8 +13,10 @@ const CodingLoveSource = function CodingLoveSource(serviceManager, source) {
 };
 
 CodingLoveSource.prototype.getRandomMeme = function getRandomMeme() {
+	console.log("tttdfdfdf")
 	return tumblrClient.blogInfo(this.source)
 		.then(data=>{
+			console.log("data")
 			const offset = Math.floor(Math.random() * data.blog.total_posts);
 			return tumblrClient.blogPosts(this.source, { offset: offset, limit: 1 });
 		})

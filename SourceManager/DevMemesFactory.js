@@ -13,6 +13,7 @@ module.exports = {
 		];
 	},
 	getRandomMeme: function getRandomMeme() {
+		console.log(DevMemesSourceArray)
 		const sourceIndex = Math.floor(Math.random() * DevMemesSourceArray.length);
 		return DevMemesSourceArray[sourceIndex].getRandomMeme();
 	},
