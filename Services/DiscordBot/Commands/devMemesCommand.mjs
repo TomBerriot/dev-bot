@@ -16,16 +16,11 @@ class DevMemesCommand extends Command {
 
 		let self = this;
 
-		console.log(message.content)
-		console.log(self)
-		logger.error(`Dev Memes Command : test`);
 		DevMemesFactory.getRandomMeme().then(meme=>{
-			console.log(meme)
 			if(meme.imgSource.includes('i.minus.com')) {
 				self.sendRandomMeme(message, args);
 				return 0;
 			}
-			console.log(meme)
 			message.channel.send(`# ${ meme.title}`, { files: [meme.imgSource], nonce: self.nonce, code: true })
 				.then(msg=>{
 					return msg.react('➕');
@@ -74,6 +69,7 @@ class DevMemesCommand extends Command {
 		logger.info(`reaction : ${reaction._emoji.name} ; author : ${ user.tag } ; server : ${ reaction.message.guild ? reaction.message.guild.name : 'no guild '}`);
 
 		if(reaction.count === 2 && reaction._emoji.name === '➕') {
+			logger.info(`Dev Memes Command reaction ➕`);
 			this.execute(reaction.message, null, user);
 		}
 	}

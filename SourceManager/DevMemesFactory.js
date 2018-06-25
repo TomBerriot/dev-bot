@@ -7,13 +7,12 @@ let DevMemesSourceArray = null;
 module.exports = {
 	setup: function setup(serviceManager) {
 		ServiceManager = serviceManager;
-		const CodingLove = new CodingLoveSource(ServiceManager, 'thecodinglove.com');
+		const CodingLove = new CodingLoveSource(ServiceManager, 'thecodinglove.tumblr.com');
 		DevMemesSourceArray = [
 			CodingLove,
 		];
 	},
 	getRandomMeme: function getRandomMeme() {
-		console.log(DevMemesSourceArray)
 		const sourceIndex = Math.floor(Math.random() * DevMemesSourceArray.length);
 		return DevMemesSourceArray[sourceIndex].getRandomMeme();
 	},

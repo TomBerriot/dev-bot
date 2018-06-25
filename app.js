@@ -17,6 +17,8 @@ const config = ServiceManager.getConfig();
 
 //APP SERVICES SETUP
 
+
+
 //Http Server request call back
 app.get('/', function(req, res) {
 	res.send('');
@@ -37,6 +39,7 @@ let ServerStartup = new Promise((resolve, reject) => {
 		reject(e);
 	}
 });
+
 
 ServerStartup.then(async  ()=>{
 	try{
