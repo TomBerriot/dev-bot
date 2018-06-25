@@ -15,8 +15,10 @@ class DevMemesCommand extends Command {
 		const logger = ServiceManager.getLogger();
 
 		let self = this;
+		console.log("sendRandomMeme")
 
 		DevMemesFactory.getRandomMeme().then(meme=>{
+			console.log(meme)
 			if(meme.imgSource.includes('i.minus.com')) {
 				self.sendRandomMeme(message, args);
 				return 0;
