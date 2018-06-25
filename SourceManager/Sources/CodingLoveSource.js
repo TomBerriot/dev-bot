@@ -14,12 +14,14 @@ const CodingLoveSource = function CodingLoveSource(serviceManager, source) {
 };
 
 CodingLoveSource.prototype.getRandomMeme = function getRandomMeme() {
-	console.log("getRandomMeme")
-	return tumblrClient.blogInfo(this.source)
+
+	const self = this;
+	console.log(self.source);
+	return tumblrClient.blogInfo(self.source)
 		.then(data=>{
-			console.log(data.blog.total_posts)
+			console.log(data.blog.total_posts);
 			const offset = Math.floor(Math.random() * data.blog.total_posts);
-			return tumblrClient.blogPosts(this.source, { offset: offset, limit: 1 });
+			return tumblrClient.blogPosts(self.source, { offset: offset, limit: 1 });
 		})
 		.then(data=>{
 			const post = data.posts[0];
