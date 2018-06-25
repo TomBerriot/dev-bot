@@ -15,7 +15,7 @@ const AnimeFactory = require('./SourceManager/AnimeFactory');
 
 const config = ServiceManager.getConfig();
 
-//APP SERVICES SETUP
+//APP SERVICES SETUP 
 
 
 

@@ -1,6 +1,6 @@
-# pedo-dev-bot
+# dev-bot
 
-Pedo Dev Discord Bot for random dev memes and other things
+Discord Dev Bot for random dev memes and other things
 
 # Commands
 ```
@@ -9,7 +9,7 @@ Pedo Dev Discord Bot for random dev memes and other things
    - devMemes (shortcut : d) : random dev memes across the web 
    - op|ed|oped < kitsu | mal > < username > [ number of videos ] : Get the opening or ending of a random anime of your completed anime library !
     (Supports Kitsu and MyAnimeList accounts). Get a playlist by adding the number of songs you want !
-   - jgirl (shortcut : jg) : Send random beautiful japanese girls <3
+   - jgirl (shortcut : jg) : Send random beautiful japanese girls 
    - rps : Rock, Paper, Scissors ! 
    - help
 ```
