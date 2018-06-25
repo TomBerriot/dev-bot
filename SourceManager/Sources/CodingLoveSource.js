@@ -17,6 +17,9 @@ CodingLoveSource.prototype.getRandomMeme = function getRandomMeme() {
 
 	const self = this;
 	console.log(self.source);
+	console.log(tumblrClient);
+	tumblrClient = require('../TumblrApi').getInstance().getClient();
+	console.log(tumblrClient);
 	return tumblrClient.blogInfo(self.source)
 		.then(data=>{
 			console.log(data.blog.total_posts);
