@@ -5,7 +5,7 @@ const { JSDOM } = jsdom;
 let tumblrClient = null;
 
 let ServiceManager = null;
-
+//
 const CodingLoveSource = function CodingLoveSource(serviceManager, source) {
 	Source.call(this, source);
 	this.source = source;
