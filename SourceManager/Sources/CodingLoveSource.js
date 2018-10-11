@@ -12,6 +12,7 @@ const CodingLoveSource = function CodingLoveSource(serviceManager, source) {
 	ServiceManager = serviceManager;
 	tumblrClient = require('../TumblrApi').getInstance().getClient();
 };
+//
 
 CodingLoveSource.prototype.getRandomMeme = function getRandomMeme() {
 
