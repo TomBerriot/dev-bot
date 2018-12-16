@@ -39,8 +39,7 @@ export default class FileStrategy extends Strategy {
 
 		this.options.filename = `${options.path}/${options.filename}`;
 		
-		this.options.formatter = opt => `${opt.timestamp()} [${opt.level.toUpperCase()}] ${undefined !== opt.message ? opt.message : ''
-		}${opt.meta && Object.keys(opt.meta).length ? `\n\t${JSON.stringify(opt.meta)}` : ''}`;
+		this.options.formatter = opt => `${opt.timestamp()} [${opt.level.toUpperCase()}] ${!opt.message ? opt.message : ''}${opt.meta && Object.keys(opt.meta).length ? `\n\t${JSON.stringify(opt.meta)}` : ''}`;
 
 		this.transport = WinstonDailyRotateFile;
 	}

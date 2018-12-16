@@ -4,27 +4,28 @@ export default class Strategy {
 
 	constructor(level, name, options = <any>{}){
 		this.options = options;
-		this.options.level = typeof level === 'undefined' ? 'info' : level;
+		this.options.level = !level ? 'info' : level;
 
-		if (options.handleExceptions) {
+		if (!options.handleExceptions) {
 			this.options.handleExceptions = true;
 		}
 
-		if ( options.humanReadableUnhandledException) {
+		if (!options.humanReadableUnhandledException) {
 			this.options.humanReadableUnhandledException = true;
 		}
 
-		if (options.json) {
+		if (!options.json) {
 			this.options.json = false;
 		}
 
-		if (options.dateFormat) {
+		if (!options.dateFormat) {
 			options.dateFormat = 'ISO';
 		}
-
+		
 		switch (options.dateFormat) {
 			case 'UTC' : {
 				this.options.timestamp = () => (new Date()).toUTCString();
+
 				break;
 			}
 			default:

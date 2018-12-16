@@ -74,9 +74,12 @@ class Logger {
 
 let logger = new Logger(config.logger.options);
 config.logger.strategies.forEach((strategy) => {
-	logger.add(create(
-		strategy.type, strategy.name, strategy.level, strategy.options)
-	);
+	
+	let strat = create(strategy.type, strategy.name, strategy.level, strategy.options);
+	console.log(strat)
+	logger.add(strat);
+	
+	
 });
 
 export default logger;
