@@ -1,4 +1,4 @@
-import DiscordBot from 'DiscordBot';
+import DiscordBot from 'src/DiscordBot';
 import Command from './abs/Command';
 
 class HelpCommand extends Command {
@@ -13,13 +13,13 @@ class HelpCommand extends Command {
 	public async execute(message, args): Promise<any>{
 		return message.channel.send(
 			`${'```Markdown' +
-			'\n# Actual Prefix : '}${ DiscordBot.getPrefix() }\n` +
-			'\n# Commands : ' +
+			'\n# Actual Prefix: '}${ DiscordBot.getPrefix() }\n` +
+			'\n# Commands: ' +
 			'\n   - devMemes (shortcut : d) : random dev memes across the web ' +
 			'\n   - help' +
 			'\n' +
-			'\n# GitHub :' +
-			'\n   - Feel free to collaborate on the developpement of the bot : https://github.com/Cleverdawn/pedo-dev-bot.git ' +
+			'\n# GitHub:' +
+			'\n   - Feel free to collaborate on the developpement of the bot : https://github.com/TomBerriot/dev-bot.git ' +
 			'```'
 		);
 	}

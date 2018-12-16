@@ -1,5 +1,5 @@
-import logger from 'Logger'
-import DevMemesFactory from 'SourceManager/DevMemesFactory';
+import logger from 'src/Logger'
+import DevMemesFactory from 'src/SourceManager/DevMemesFactory';
 import Command from './abs/Command';
 
 class DevMemesCommand extends Command {

@@ -1,8 +1,8 @@
-import Post from 'SourceManager/Post';
-import Source from 'SourceManager/abs/Source';
+import Post from 'src/SourceManager/Post';
+import Source from 'src/SourceManager/abs/Source';
 import { JSDOM }  from 'jsdom';
-import logger from 'Logger'
-import tumblr from 'SourceManager/TumblrApi';
+import logger from 'src/Logger'
+import tumblr from 'src/SourceManager/TumblrApi';
 let tumblrClient = tumblr.client;
 
 export default class CodingLoveSource extends Source{

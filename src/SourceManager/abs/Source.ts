@@ -1,4 +1,4 @@
-import Post from 'SourceManager/Post'
+import Post from 'src/SourceManager/Post'
 
 export default class Source {
 	public source: string;

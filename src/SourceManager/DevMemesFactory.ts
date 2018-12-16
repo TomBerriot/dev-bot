@@ -1,6 +1,6 @@
-import CodingLoveSource from 'SourceManager/Sources/CodingLoveSource';
-import Source from './abs/Source';
-import Post from 'SourceManager/Post'
+import CodingLoveSource from 'src/SourceManager/Sources/CodingLoveSource';
+import Source from 'src/SourceManager/abs/Source';
+import Post from 'src/SourceManager/Post'
 
 class DevMemesFactory{
 	private DevMemesSourceArray: Array<Source>;
