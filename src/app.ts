@@ -4,10 +4,10 @@ const app = express();
 import http from 'http'
 const server = http.createServer(app);
 
-import logger from 'src/Logger';
-import config from 'src/config';
-import TumblrApi from 'src/SourceManager/TumblrApi';
-import DiscordBot from 'src/DiscordBot';
+import logger from './Logger';
+import config from './config';
+import TumblrApi from './SourceManager/TumblrApi';
+import DiscordBot from './DiscordBot';
 
 //Http Server request call back
 app.get('/', function(req, res) {

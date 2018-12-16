@@ -1,6 +1,6 @@
 import winston from 'winston';
-import config from 'config';
-import {create} from 'Logger/Strategy/StrategyFactory';
+import config from '../config';
+import {create} from './Strategy/StrategyFactory';
 
 class Logger {
 

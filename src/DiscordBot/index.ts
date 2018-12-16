@@ -1,8 +1,8 @@
 import Discord from 'discord.js';
 import fs from 'fs';
 import appRootPath from 'app-root-path';
-import logger from 'Logger';
-import config from 'config';
+import logger from '../Logger';
+import config from '../config';
 import path from 'path';
 
 let discordBotConfig = config.discordBot;

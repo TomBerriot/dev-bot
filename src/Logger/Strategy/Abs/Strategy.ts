@@ -3,6 +3,7 @@ export default class Strategy {
 	protected transport;
 
 	constructor(level, name, options = <any>{}){
+		this.options = options;
 		this.options.level = typeof level === 'undefined' ? 'info' : level;
 
 		if (options.handleExceptions) {

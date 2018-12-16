@@ -15,7 +15,7 @@ export const StrategyEnum = {
  * @module StrategyFactory
  * @description The logger strategy factory
  */
-export function create(type, name, level, options) {
+export function create(type, name, level, options= <any>{}) {
 	switch (type) {
 		case StrategyEnum.CONSOLE : {
 			return new ConsoleStrategy(level, name, options);

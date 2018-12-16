@@ -1,6 +1,6 @@
 import tumblr from 'tumblr.js';
-import config from 'config'
-import logger from 'Logger'
+import config from '../config'
+import logger from '../Logger'
 
 const tumblrApiConfig = config.tumblrApi;
 

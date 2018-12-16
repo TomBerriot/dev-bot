@@ -1,4 +1,4 @@
-import DiscordBot from 'DiscordBot';
+import DiscordBot from '../index';
 import Command from './abs/Command';
 
 class HelpCommand extends Command {
