@@ -1,1 +1,1 @@
-web: yarn run 
+worker: yarn run start
