@@ -1,4 +1,4 @@
-import logger from 'Logger'
+import logger from '../../Logger/index'
 import DevMemesFactory from '../../SourceManager/DevMemesFactory';
 import Command from './abs/Command';
 

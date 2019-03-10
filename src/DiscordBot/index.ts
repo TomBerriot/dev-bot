@@ -1,7 +1,7 @@
 import Discord from 'discord.js';
 import fs from 'fs';
 import appRootPath from 'app-root-path';
-import logger from '../Logger';
+import logger from '../Logger/index';
 import config from '../config';
 import path from 'path';
 
@@ -15,7 +15,7 @@ class DiscordBot{
 		this.bot.commands = new Discord.Collection();
 		this.bot.reactionsHandlers = new Discord.Collection();
 	
-		let folderPath = `${appRootPath}/Services/DiscordBot/Commands`;
+		let folderPath = `${appRootPath}/src/DiscordBot/Commands`;
 		const commandFiles = fs.readdirSync(folderPath).filter((file) => fs.lstatSync(path.join(folderPath, file)).isFile());
 	
 		for (let file of commandFiles) {

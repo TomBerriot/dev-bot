@@ -6,8 +6,8 @@
   "author": "Tom Berriot",
   "license": "MIT",
   "engines": {
-    "node": "11.4.0",
-    "yarn": "1.12.3"
+    "node": "11.11.0",
+    "yarn": "1.13.0"
   },
   "dependencies": {
     "@types/express": "^4.16.0",

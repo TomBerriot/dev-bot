@@ -76,7 +76,6 @@ let logger = new Logger(config.logger.options);
 config.logger.strategies.forEach((strategy) => {
 	
 	let strat = create(strategy.type, strategy.name, strategy.level, strategy.options);
-	console.log(strat)
 	logger.add(strat);
 	
 	
