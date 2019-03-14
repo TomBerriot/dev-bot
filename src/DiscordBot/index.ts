@@ -25,9 +25,9 @@ class DiscordBot{
 			if(command.nonce) this.bot.reactionsHandlers.set(command.nonce, command);
 		}
 	
-		this.bot.on('ready', this.ready);
-		this.bot.on('message', this.message);
-		this.bot.on('messageReactionAdd', this.messageReactionAdd);
+		this.bot.on('ready', this.ready.bind(this));
+		this.bot.on('message', this.message.bind(this));
+		this.bot.on('messageReactionAdd', this.messageReactionAdd.bind(this));
 	
 		return this.bot.login(discordBotConfig.token);
 	}
