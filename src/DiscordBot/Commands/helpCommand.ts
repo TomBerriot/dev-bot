@@ -19,7 +19,7 @@ class HelpCommand extends Command {
 			'\n   - help' +
 			'\n' +
 			'\n# GitHub :' +
-			'\n   - Feel free to collaborate on the developpement of the bot : https://github.com/Cleverdawn/pedo-dev-bot.git ' +
+			'\n   - Feel free to collaborate on the developpement of the bot : https://github.com/TomBerriot/dev-bot ' +
 			'```'
 		);
 	}
