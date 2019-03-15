@@ -9,7 +9,7 @@ class TumblrApi {
 
 	public setup(){
 		try{
-			this.client = new tumblr.createClient({
+			this.client = tumblr.createClient({
 				consumer_key: tumblrApiConfig.apikey,
 				consumer_secret: tumblrApiConfig.secretKey,
 				token: tumblrApiConfig.token,
