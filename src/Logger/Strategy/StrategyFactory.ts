@@ -7,26 +7,24 @@ import FileStrategy from './FileStrategy';
  * @enum {number}
  */
 export const StrategyEnum = {
-	CONSOLE: 'console',
-	FILE: 'file',
+  CONSOLE: 'console',
+  FILE: 'file',
 };
 
 /**
  * @module StrategyFactory
  * @description The logger strategy factory
  */
-export function create(type, name, level, options= <any>{}) {
-	switch (type) {
-		case StrategyEnum.CONSOLE : {
-			return new ConsoleStrategy(level, name, options);
-			break;
-		}
-		case StrategyEnum.FILE : {
-			return new FileStrategy(level, name, options);
-			break;
-		}
-		default: {
-			throw new Error('Invalid strategy type');
-		}
-	}
+export function create(type, name, level, options = {} as any) {
+  switch (type) {
+    case StrategyEnum.CONSOLE: {
+      return new ConsoleStrategy(level, name, options);
+    }
+    case StrategyEnum.FILE: {
+      return new FileStrategy(level, name, options);
+    }
+    default: {
+      throw new Error('Invalid strategy type');
+    }
+  }
 }
