@@ -15,26 +15,26 @@ import Strategy from './Abs/Strategy';
  * @param {Boolean} [options.prettyPrint=true]
  */
 export default class ConsoleStrategy extends Strategy {
-  constructor(level, name, options = {} as any) {
-    super(level, name, options);
+    constructor(level, name, options = {} as any) {
+        super(level, name, options);
 
-    if (typeof options.prettyPrint === 'undefined') {
-      this.options.prettyPrint = true;
+        if (typeof options.prettyPrint === 'undefined') {
+            this.options.prettyPrint = true;
+        }
+        if (typeof options.colorize === 'undefined') {
+            this.options.colorize = true;
+        }
+
+        this.options.formatter = opt =>
+            `${opt.timestamp()} ${winstonConfig.colorize(
+                opt.level,
+                `[${opt.level.toUpperCase()}] `
+            )}${undefined !== opt.message ? opt.message : ''}${
+                opt.meta && Object.keys(opt.meta).length
+                    ? `\n\t${JSON.stringify(opt.meta)}`
+                    : ''
+            }`;
+
+        this.transport = winston.transports.Console;
     }
-    if (typeof options.colorize === 'undefined') {
-      this.options.colorize = true;
-    }
-
-    this.options.formatter = opt =>
-      `${opt.timestamp()} ${winstonConfig.colorize(
-        opt.level,
-        `[${opt.level.toUpperCase()}] `
-      )}${undefined !== opt.message ? opt.message : ''}${
-        opt.meta && Object.keys(opt.meta).length
-          ? `\n\t${JSON.stringify(opt.meta)}`
-          : ''
-      }`;
-
-    this.transport = winston.transports.Console;
-  }
 }
