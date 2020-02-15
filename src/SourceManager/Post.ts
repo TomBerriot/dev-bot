@@ -1,12 +1,11 @@
 export default class Post {
-	public title;
-	public imgSource;
-	public sourceLink;
+    public title: string;
+    public imgSource: string;
+    public sourceLink?: string;
 
-	constructor(title, imgSource, sourceLink = undefined){
-		this.title = title;
-		this.imgSource = imgSource;
-		this.sourceLink = sourceLink;
-	}
-	
-};
+    constructor(title: string, imgSource: string, sourceLink?: string) {
+        this.title = title;
+        this.imgSource = imgSource;
+        this.sourceLink = sourceLink;
+    }
+}
