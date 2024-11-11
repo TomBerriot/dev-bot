@@ -13,7 +13,7 @@ class HelpCommand extends Command {
 
     public async execute(message, args): Promise<any> {
         return message.channel.send(
-            `${'Markdown' +
+            `${'```Markdown' +
                 '\n# Actual Prefix : '}${DiscordBot.getPrefix()}\n` +
                 '\n# Commands : ' +
                 '\n   - devMemes (shortcut : d) : random dev memes across the web ' +
@@ -21,7 +21,7 @@ class HelpCommand extends Command {
                 '\n' +
                 '\n# GitHub :' +
                 '\n   - Feel free to collaborate on : https://github.com/TomBerriot/dev-bot ' +
-                ''
+                '```'
         );
     }
 }
